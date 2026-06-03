@@ -96,6 +96,14 @@ h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(22px, 7vw, 30px); fon
 .legend-box.normal { background: rgba(255,255,255,.7); border-color: var(--green-line); }
 .legend-box.sys    { background: var(--green-light); border-color: var(--green-mid); }
 
+/* ════ CONCEPT ════ */
+.concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px; }
+@media(min-width:600px){ .concept-grid { grid-template-columns: repeat(4,1fr); gap: 16px; } }
+.concept-card { background: var(--white); border: 1px solid var(--green-line); border-radius: 12px; padding: 20px 16px; }
+.concept-icon { font-size: 28px; margin-bottom: 10px; line-height: 1; }
+.concept-name { font-size: 14px; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; line-height: 1.4; }
+.concept-desc { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+
 /* ════ PRODUCT CATALOG ════ */
 .prod-lead { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
 .prod-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -297,22 +305,53 @@ footer { background: var(--green-dark); padding: 28px 20px; text-align: center; 
 <!-- ════ HERO ════ -->
 <section id="hero">
   <div class="wrap">
-    <div class="hero-badge">宿泊税対応ガイド</div>
-    <h1 class="hero-title">宿泊税対応を、<br>もっとシンプルに。</h1>
+    <div class="hero-badge">AI.LandBase ／ オーダーメイドシステム</div>
+    <h1 class="hero-title">あなたのお宿だけの<br>専用システムを、<br>補助金でつくる。</h1>
     <p class="hero-sub">
-      宿泊税対応に必要な計算・集計・申告データ作成・領収書発行を支援するシステムを提供しています。<br>
-      お宿の環境に合わせてご提案・構築します。
+      宿泊税の計算・領収書・申告集計はもちろん、タブレットやプリンターも含めて一式を設計します。<br>
+      既に機器がある宿はそのまま対応。補助率100%・上限200万円（税抜）。
     </p>
-    <a class="hero-cta" href="#contact">ご相談はこちら（無料）</a>
+    <a class="hero-cta" href="#contact">無料で相談してみる →</a>
+  </div>
+</section>
+
+<!-- ════ CONCEPT ════ -->
+<section id="concept">
+  <div class="wrap">
+    <div class="sec-eyebrow">なぜオーダーメイドか</div>
+    <h2>お宿ごとに、違うシステムをつくります。</h2>
+    <p class="lead">既製のSaaSを入れても「うちには合わない」という声をよく聞きます。<br>AI.LandBaseは、あなたの宿の運用・機器・OTA環境を聞いてから設計します。</p>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-icon">🏡</div>
+        <div class="concept-name">あなたのお宿専用</div>
+        <div class="concept-desc">予約の取り方・領収書の出し方・スタッフの数。すべてヒアリングしてから設計します。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">📦</div>
+        <div class="concept-name">ハードウェアも一緒に</div>
+        <div class="concept-desc">タブレット・レシートプリンター・Wi-Fiルーターまで。補助金対象なので実質無料で揃えられます。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🔧</div>
+        <div class="concept-name">今の機器はそのまま</div>
+        <div class="concept-desc">すでにPCやレジがある宿は、それを活かして設計します。買い替え不要です。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🤝</div>
+        <div class="concept-name">使い方も一緒に決める</div>
+        <div class="concept-desc">入れて終わりではなく、実際に使えるようになるまで伴走します。補助金の申請書類もサポート。</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ════ FEATURES ════ -->
 <section id="features">
   <div class="wrap">
-    <div class="sec-eyebrow">できること</div>
-    <h2>このシステムでできること</h2>
-    <p class="lead">機能はすべて<strong>補助金の対象</strong>です。必要なものを選んで、そのままお問い合わせフォームのカートへ。</p>
+    <div class="sec-eyebrow">システムに乗せる機能</div>
+    <h2>欲しいものを選んで、<br>あなたのシステムをつくる。</h2>
+    <p class="lead">すべて補助金対象です。気になるものをカートに入れてください。選んだ内容をもとに担当者が仮見積もりを準備します。</p>
 
     <div class="prod-cat-ttl">基本機能 — どのお宿にも必要なもの</div>
     <div class="prod-grid">
@@ -472,28 +511,79 @@ footer { background: var(--green-dark); padding: 28px 20px; text-align: center; 
       </div>
 
     </div>
+
+    <div class="prod-cat-ttl">ハードウェア — 補助金で丸ごと揃えられる</div>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;line-height:1.8;">タブレットやプリンターも補助金の対象です。「機器がない」「古くて使いにくい」という宿はこの機会に一緒に揃えましょう。すでにお持ちの方は不要です。</p>
+    <div class="prod-grid">
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge subsidy">補助金で購入可</span>
+          </div>
+          <div class="prod-icon-wrap blue">💻</div>
+          <div class="prod-name">タブレット（iPad等）</div>
+          <div class="prod-desc">フロントに置いてチェックイン・精算・確認に使います。スタンド付きで設置もスッキリ。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 本体・ケース・スタンドも補助対象</div>
+          <button class="prod-cta" data-want="tablet">🛒 カートに入れる</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge subsidy">補助金で購入可</span>
+          </div>
+          <div class="prod-icon-wrap brown">🖨️</div>
+          <div class="prod-name">レシートプリンター</div>
+          <div class="prod-desc">領収書・適格請求書をその場で印字。コンパクトでフロントに置きやすいサイズ。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 用紙・設定費用も補助対象</div>
+          <button class="prod-cta" data-want="printer">🛒 カートに入れる</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge subsidy">補助金で購入可</span>
+          </div>
+          <div class="prod-icon-wrap green">📡</div>
+          <div class="prod-name">Wi-Fiルーター</div>
+          <div class="prod-desc">システム稼働に必要な安定したネット環境を整備。電波の弱い場所にも対応できる機種を選定します。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 設置・設定費用も補助対象</div>
+          <button class="prod-cta" data-want="wifi">🛒 カートに入れる</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
 <!-- ════ SCOPE ════ -->
 <section id="scope">
   <div class="wrap">
-    <div class="sec-eyebrow">対象範囲</div>
-    <h2>このシステムの対象外</h2>
+    <div class="sec-eyebrow">今あるものはそのまま</div>
+    <h2>今のシステムは<br>変えなくていいです。</h2>
     <p class="lead">
-      本システムは宿泊税対応業務に特化しています。<br>
-      以下の機能は対象外です。
+      今使っているシステムや機器はそのままで大丈夫です。<br>
+      宿泊税対応に必要な部分だけをオーダーメイドで追加します。
     </p>
     <div class="scope-note">
-      現在ご利用の予約システムや管理ツールをそのままお使いいただけます。<br>
-      宿泊税対応に必要な機能だけを追加する形で導入できます。
+      じゃらん・楽天・ねっぱんなど今使っている予約ツールはそのまま継続できます。<br>
+      「新しいシステムに全部乗り換え」は不要です。足りない部分だけを追加する設計です。
     </div>
     <ul class="scope-list">
       <li>予約管理・空室管理</li>
       <li>PMS（宿泊管理システム）</li>
-      <li>OTA連携（じゃらん・楽天など）</li>
+      <li>OTA（じゃらん・楽天等）</li>
       <li>決済・精算システム</li>
-      <li>チェックイン・チェックアウト管理</li>
+      <li>チェックイン・チェックアウト</li>
       <li>顧客管理（CRM）</li>
     </ul>
   </div>
@@ -704,11 +794,11 @@ footer { background: var(--green-dark); padding: 28px 20px; text-align: center; 
 <!-- ════ CONTACT ════ -->
 <section id="contact">
   <div class="wrap">
-    <div class="sec-eyebrow">お問い合わせ</div>
-    <h2>ご相談・お問い合わせ</h2>
+    <div class="sec-eyebrow">あなたのシステムをつくる</div>
+    <h2>どんなシステムが<br>欲しいか、教えてください。</h2>
     <p class="lead">
-      相談・見積もりは無料です。<br>
-      「まだ検討段階」「話を聞いてみたい」という段階でも、お気軽にどうぞ。
+      相談・仮見積もりは無料です。「まだ検討中」でも大丈夫。<br>
+      フォームに答えるだけで、担当者が訪問前に仮見積もりを準備します。
     </p>
 
     <div class="form-wrap">
@@ -1280,6 +1370,7 @@ async function sendEmail(name, facility, tel, email, patterns, est, fd) {
     pms_connect:   '今のPMSに組み込む',
     tablet:        'タブレット',
     printer:       'レシートプリンター',
+    wifi:          'Wi-Fiルーター',
   };
 
   function updateCart() {
