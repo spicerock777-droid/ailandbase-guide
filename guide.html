@@ -1063,7 +1063,7 @@ footer {
         <!-- 現在の環境ヒアリング -->
         <div class="form-section">
           <div class="form-section-ttl">現在の環境について（任意）</div>
-          <div class="form-section-sub">お宿に合ったシステムをご提案するために、現在の状況をお聞かせください。</div>
+          <div class="form-section-sub">ご回答いただいた内容をもとに、担当者がご訪問前に<strong>仮見積もりを準備</strong>します。初回のご訪問で具体的なご提案ができるよう、わかる範囲でお答えください。</div>
 
           <div class="fg">
             <label class="fl">予約の受付方法（複数選択可）</label>
@@ -1152,8 +1152,8 @@ footer {
 
         <!-- 見積もりのための確認事項 -->
         <div class="form-section">
-          <div class="form-section-ttl">お見積もりのための確認事項（任意）</div>
-          <div class="form-section-sub">ご訪問前に概算のご提案を準備するために、もう少しだけ教えてください。</div>
+          <div class="form-section-ttl">追加のご確認（任意）</div>
+          <div class="form-section-sub">もう少しだけ教えていただけると、より精度の高い仮見積もりを準備できます。</div>
 
           <div class="fg">
             <label class="fl">インボイス（適格請求書）の登録状況</label>
@@ -1334,14 +1334,11 @@ function showResult(name, facility, patterns, est, fd) {
           </div>`).join('')}
       </div>
       <div class="result-sec">
-        <div class="result-sec-ttl">概算見積もり</div>
-        <table class="result-table">
-          <tr><td>システム費用（税抜）</td><td class="amt">${est.low}〜${est.high}万円</td></tr>
-          <tr class="sub-row"><td>補助金（最大200万円・税抜）</td><td class="amt">▲ ${est.subsidyLow}〜${est.subsidyHigh}万円</td></tr>
-          <tr class="out-row"><td>手出し（消費税10%）</td><td class="amt">${est.outLow}〜${est.outHigh}万円</td></tr>
-        </table>
-        ${est.overLimit?'<p class="over-note">※ 200万円を超える部分は自己負担となります。</p>':''}
-        <p class="result-note">※ 詳細ヒアリング後に正式見積もりをご提示します。</p>
+        <div class="result-sec-ttl">仮見積もりの準備状況</div>
+        <p style="font-size:14px;color:var(--text-mid);line-height:1.9;">
+          いただいた情報をもとに、担当者が仮見積もりを準備します。<br>
+          ご訪問・オンライン打ち合わせの際に詳しくご説明します。
+        </p>
       </div>
       ${prereqs.length?`
       <div class="result-sec">
