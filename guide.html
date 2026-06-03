@@ -1246,12 +1246,42 @@ footer {
 
 <script>
 const PATTERN_INFO = {
-  P1:{name:'完全新規構築型',   desc:'デジタル機器を一から揃えて導入します',                         prereq:['タブレット・プリンターの希望機種確認','設置場所・電源確認','操作研修の日程調整'],              low:74,  high:153},
-  P2:{name:'スタンドアロン追加型',desc:'既存の運用はそのままに宿泊税システムを追加します',           prereq:['プリンターの有無・機種確認','希望機能の詳細ヒアリング'],                                      low:43,  high:88},
-  P3:{name:'既存PMS改修型',    desc:'使用中の予約管理システムに宿泊税機能を追加します',             prereq:['PMSシステム名・バージョン確認','ベンダーへのAPI連携可否確認（訪問前に実施）'],               low:65,  high:190},
-  P4:{name:'POSレジ連携型',   desc:'使用中のレジに宿泊税を連携します',                             prereq:['レジ機種名・年式の確認','メーカーへの連携可否確認（訪問前に実施）'],                           low:33,  high:108},
-  P5:{name:'OTA複数連携型',   desc:'複数OTAの現地払い・前払いを識別して自動計算します',            prereq:['利用OTA全社リスト','Agoda利用の有無','チャネルマネージャー名とAPI可否'],                       low:100, high:210},
-  P6:{name:'会計ソフト連携型', desc:'宿泊税データを会計ソフトに連携します',                         prereq:['会計ソフト名・バージョン','API連携・CSV出力の可否確認'],                                       low:23,  high:70},
+  P1:{name:'完全新規構築型',
+      desc:'デジタル機器・システムを一から揃えて導入します',
+      prereq:['タブレット・プリンターの希望機種確認','設置場所・電源の確認','操作研修の日程調整'],
+      low:60, high:130},
+  P2:{name:'スタンドアロン追加型',
+      desc:'現在の運用はそのままに、宿泊税計算・領収書システムを追加します',
+      prereq:['プリンターの有無・機種確認','希望機能の詳細ヒアリング'],
+      low:30, high:80},
+  P3:{name:'既存PMS改修型',
+      desc:'使用中の予約管理システムに宿泊税機能を追加します',
+      prereq:[
+        'PMSシステム名・バージョンの確認',
+        'ベンダーへの改修費用・対応可否の確認（訪問前に必須）',
+        '※ innto・Staysee・Beds24等は宿泊税対応済みのため補助金不要の場合あり→要確認',
+      ],
+      low:50, high:180},
+  P4:{name:'POSレジ＋補助システム型',
+      desc:'レジ業務はそのままに、宿泊税計算・領収書を別システムで対応します',
+      prereq:[
+        'レジ機種名・年式の確認',
+        '※ Airレジ・スマレジ・据置型レジは宿泊税の自動計算に非対応 → 別途補助システムが必要',
+        'レジと補助システムの運用フロー設計',
+      ],
+      low:30, high:80},
+  P5:{name:'OTA複数連携型',
+      desc:'複数OTAの現地払い・前払いを識別して宿泊税を自動計算します',
+      prereq:[
+        '利用OTA全社リストと各社の現地払い有無',
+        '※ Airbnb・Booking.comはOTA側が宿泊税を徴収するケースあり → 対象OTA絞り込みが必要',
+        'チャネルマネージャー名とAPI連携可否',
+      ],
+      low:80, high:200},
+  P6:{name:'会計ソフト連携型',
+      desc:'宿泊税データを会計ソフトに連携・申告帳票を自動出力します',
+      prereq:['会計ソフト名・バージョンの確認','CSV出力・API連携の可否確認'],
+      low:15, high:60},
 };
 
 function determinePatterns(fd) {
@@ -1260,8 +1290,9 @@ function determinePatterns(fd) {
   const booking = fd.getAll('booking');
   const patterns = [];
 
-  const noDigital = devices.includes('none') || devices.length === 0 ||
-    devices.every(d => d === 'smartphone');
+  // 「あまり使っていない」選択 or スマホのみ → アナログ判定（未選択は判定しない）
+  const noDigital = devices.includes('none') ||
+    (devices.length > 0 && devices.every(d => d === 'smartphone'));
 
   if (ledger === 'paper' && noDigital) patterns.push('P1');
   else if (ledger === 'system')        patterns.push('P3');
@@ -1284,12 +1315,15 @@ function determinePatterns(fd) {
   return patterns.length ? patterns : ['P2'];
 }
 
+// 副パターンの追加費用（万円）：基準値の割合ではなく実態に即した固定レンジ
+const SECONDARY_ADD = { P5:{low:15,high:40}, P6:{low:5,high:15}, P4:{low:5,high:15} };
+
 function calcEstimate(patterns, fd) {
   let low  = PATTERN_INFO[patterns[0]].low;
   let high = PATTERN_INFO[patterns[0]].high;
   for (let i = 1; i < patterns.length; i++) {
-    const p = PATTERN_INFO[patterns[i]];
-    if (p) { low += Math.round(p.low * 0.4); high += Math.round(p.high * 0.4); }
+    const add = SECONDARY_ADD[patterns[i]];
+    if (add) { low += add.low; high += add.high; }
   }
   const rooms = fd.get('rooms');
   if (rooms === '11-20')  { low = Math.round(low*1.15); high = Math.round(high*1.15); }
