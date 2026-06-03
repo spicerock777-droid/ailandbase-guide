@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>補助金申請サポート｜AI.LandBase</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+:root {
+  --green-dark:  #1f4a33;
+  --green-mid:   #2d6a4f;
+  --green-light: #eaf3ed;
+  --green-line:  #b8d4c2;
+  --brown:       #8d5a3a;
+  --brown-light: #f3ece6;
+  --brown-line:  #d4b49a;
+  --cream:       #fdf8ef;
+  --bg:          #f5f0e8;
+  --text-dark:   #1a2e22;
+  --text-mid:    #3d5a47;
+  --text-muted:  #6a7a6e;
+  --white:       #ffffff;
+  --amber:       #92600a;
+  --amber-light: #fdf3e3;
+  --amber-line:  #e8c87a;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+  line-height: 1.7;
+}
+
+/* ════ NAV ════ */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--green-line);
+  z-index: 100;
+  padding: 0 20px;
+}
+.nav-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+.nav-logo {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--green-dark);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--green-mid); font-weight: 300; }
+.nav-links { display: flex; gap: 22px; list-style: none; }
+.nav-links a {
+  font-size: 9.5pt;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--green-dark); }
+@media(max-width:600px){ .nav-links { display: none; } }
+
+/* ── スマホ用ボトムナビ ── */
+#mobile-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--green-line);
+  z-index: 100;
+  padding: 10px 0 max(10px, env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: space-around;
+}
+#mobile-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 8pt;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+@media(min-width:601px){ #mobile-nav { display: none; } }
+
+/* ════ LAYOUT ════ */
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+section { padding: 68px 0; }
+@media(max-width:600px){
+  section { padding: 44px 0; }
+  .wrap { padding: 0 16px; }
+}
+section:nth-child(even) { background: var(--white); }
+
+.sec-eyebrow {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--green-mid);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.sec-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--green-line); max-width: 60px; }
+
+h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(16pt, 4vw, 21pt);
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.55;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+.lead {
+  font-size: 9.5pt;
+  color: var(--text-mid);
+  line-height: 2.0;
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+
+/* ════ HERO ════ */
+#hero {
+  padding-top: 126px;
+  padding-bottom: 68px;
+  background: var(--cream);
+  border-bottom: 2px solid var(--green-dark);
+}
+.hero-badge {
+  display: inline-block;
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--green-mid);
+  border: 1.5px solid var(--green-mid);
+  padding: 3px 12px;
+  letter-spacing: 0.18em;
+  margin-bottom: 16px;
+}
+.hero-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(20pt, 5.5vw, 28pt);
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+.hero-sub {
+  font-size: 10pt;
+  color: var(--text-mid);
+  line-height: 2.0;
+  font-weight: 300;
+  max-width: 540px;
+  padding-left: 14px;
+  border-left: 2px solid var(--green-mid);
+  margin-bottom: 28px;
+}
+.subsidy-summary {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  background: var(--green-light);
+  border: 1px solid var(--green-line);
+  margin-top: 8px;
+}
+.ss-item { }
+.ss-lbl { font-size: 9.5pt; color: var(--text-muted); letter-spacing: 0.18em; margin-bottom: 2px; }
+.ss-val { font-size: 13pt; font-weight: 700; color: var(--green-dark); line-height: 1.2; }
+.ss-val small { font-size: 9pt; font-weight: 400; color: var(--text-mid); }
+
+/* ════ FLOW STEPS ════ */
+#flow { }
+.flow-steps { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+
+.flow-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.flow-step-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 44px;
+}
+.flow-step-num {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10pt;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.flow-step-num.client   { background: var(--cream); border: 2px solid var(--green-line); color: var(--text-muted); }
+.flow-step-num.support  { background: var(--green-dark); color: white; }
+.flow-step-num.together { background: var(--green-mid); color: white; }
+
+.flow-step-line {
+  width: 1px;
+  flex: 1;
+  min-height: 24px;
+  background: var(--green-line);
+  margin: 4px 0;
+}
+.flow-step:last-child .flow-step-line { display: none; }
+
+.flow-step-body {
+  padding-top: 7px;
+  padding-bottom: 22px;
+  flex: 1;
+}
+.flow-step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+.flow-step-title {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.role-badge {
+  font-size: 9.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.role-badge.client   { background: var(--cream); border: 1px solid var(--green-line); color: var(--text-muted); }
+.role-badge.support  { background: var(--green-dark); color: white; }
+.role-badge.together { background: var(--green-mid); color: white; }
+
+.flow-step-desc {
+  font-size: 9.5pt;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+.flow-step-note {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--amber-light);
+  border: 1px solid var(--amber-line);
+  font-size: 9pt;
+  color: var(--amber);
+  line-height: 1.7;
+}
+
+/* ════ DOCUMENTS ════ */
+#docs { }
+.doc-phase { margin-bottom: 32px; }
+.doc-phase-ttl {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: var(--green-mid);
+  letter-spacing: 0.16em;
+  border-bottom: 1px solid var(--green-line);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+.doc-list { display: flex; flex-direction: column; gap: 7px; }
+.doc-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 11px 14px;
+  background: var(--white);
+  border: 1px solid var(--green-line);
+  border-left: 3px solid var(--green-mid);
+}
+.doc-item.optional {
+  border-left-color: var(--brown-line);
+  background: var(--brown-light);
+}
+.doc-num {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: var(--green-mid);
+  flex-shrink: 0;
+  min-width: 20px;
+  font-family: monospace;
+  padding-top: 1px;
+}
+.doc-item.optional .doc-num { color: var(--brown); }
+.doc-body { flex: 1; }
+.doc-name {
+  font-size: 9pt;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+.doc-desc {
+  font-size: 9pt;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.doc-tag {
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 1px 6px;
+  border-radius: 1px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.doc-tag.opt { background: var(--brown-light); border: 1px solid var(--brown-line); color: var(--brown); }
+.doc-support-note {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--green-light);
+  border: 1px solid var(--green-line);
+  font-size: 9.5pt;
+  color: var(--green-dark);
+  line-height: 1.8;
+}
+
+/* ════ CAUTIONS ════ */
+#cautions { }
+.caution-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.caution {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background: var(--amber-light);
+  border: 1px solid var(--amber-line);
+  border-left: 3px solid var(--amber);
+}
+.caution-num {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--amber);
+  flex-shrink: 0;
+  min-width: 18px;
+}
+.caution-body { }
+.caution-title {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+.caution-desc {
+  font-size: 9.5pt;
+  color: #6b4a0a;
+  line-height: 1.85;
+}
+
+/* ════ SUPPORT ════ */
+#support { }
+.support-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+@media(max-width:520px){ .support-grid { grid-template-columns: 1fr; } }
+.support-card {
+  padding: 16px;
+  border: 1px solid var(--green-line);
+  background: var(--white);
+  border-left: 3px solid var(--green-mid);
+}
+.support-card.full {
+  grid-column: 1 / -1;
+  border-left-color: var(--green-dark);
+  background: var(--green-light);
+}
+.support-ttl { font-size: 9pt; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+.support-card.full .support-ttl { color: var(--green-dark); }
+.support-desc { font-size: 9.5pt; color: var(--text-muted); line-height: 1.8; }
+
+/* ════ CONTACT ════ */
+#contact { background: var(--cream); }
+.contact-box {
+  border: 1.5px solid var(--brown-line);
+  background: var(--brown-light);
+  padding: 22px 24px;
+  margin-top: 8px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.contact-main { flex: 1; }
+.contact-eyebrow { font-size: 8.5pt; color: var(--text-muted); letter-spacing: 0.14em; margin-bottom: 6px; }
+.contact-tel { font-size: 20pt; font-weight: 700; color: var(--text-dark); letter-spacing: 0.06em; line-height: 1; margin-bottom: 5px; }
+.contact-note { font-size: 9pt; color: var(--text-muted); line-height: 1.9; }
+.contact-office {
+  font-size: 9pt;
+  color: var(--text-muted);
+  line-height: 1.9;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid var(--brown-line);
+  flex-shrink: 0;
+}
+.contact-office strong { display: block; color: var(--text-mid); font-size: 9.5pt; margin-bottom: 4px; }
+
+/* ════ FOOTER ════ */
+footer {
+  background: var(--green-dark);
+  padding: 26px 24px;
+  text-align: center;
+}
+.foot-logo { font-size: 13pt; font-weight: 700; color: white; letter-spacing: 0.04em; margin-bottom: 6px; }
+.foot-sub { font-size: 9pt; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<header id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">AI.<span>Land</span>Base</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#flow">申請の流れ</a></li>
+        <li><a href="#docs">必要書類</a></li>
+        <li><a href="#cautions">注意点</a></li>
+        <li><a href="#support">サポート内容</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-badge">補助金申請サポート</div>
+    <h1 class="hero-title">補助金申請を、<br>一緒に進めます。</h1>
+    <p class="hero-sub">
+      沖縄県の宿泊税対応システム改修等補助金の申請手続きを、<br>
+      AI.LandBaseがサポートします。書類の準備から提出まで、伴走します。
+    </p>
+    <div class="subsidy-summary">
+      <div class="ss-item">
+        <div class="ss-lbl">補助率</div>
+        <div class="ss-val">100%<small>（全額補助）</small></div>
+      </div>
+      <div class="ss-item">
+        <div class="ss-lbl">上限額</div>
+        <div class="ss-val">200万円<small>（税抜・1施設）</small></div>
+      </div>
+      <div class="ss-item">
+        <div class="ss-lbl">手出し金</div>
+        <div class="ss-val">消費税分のみ<small>（本体は全額補助）</small></div>
+      </div>
+      <div class="ss-item">
+        <div class="ss-lbl">事業完了期限</div>
+        <div class="ss-val">2027年1月31日</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FLOW ════ -->
+<section id="flow">
+  <div class="wrap">
+    <div class="sec-eyebrow">申請の流れ</div>
+    <h2>申請から補助金受取までの流れ</h2>
+    <p class="lead">全7ステップです。AI.LandBaseが担当する部分と、事業者さまにお願いする部分をわけて説明します。</p>
+
+    <div class="flow-steps">
+
+      <div class="flow-step">
+        <div class="flow-step-left">
+          <div class="flow-step-num client">1</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-body">
+          <div class="flow-step-header">
+            <div class="flow-step-title">特別徴収義務者の登録申請</div>
+            <span class="role-badge client">事業者さま</span>
+          </div>
+          <div class="flow-step-desc">
+            補助金申請の前提条件として、沖縄県に宿泊税の特別徴収義務者として登録を申請します。登録申請は沖縄県税務課への手続きです。
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-left">
+          <div class="flow-step-num support">2</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-body">
+          <div class="flow-step-header">
+            <div class="flow-step-title">申請書類の準備</div>
+            <span class="role-badge support">AI.LandBaseがサポート</span>
+          </div>
+          <div class="flow-step-desc">
+            交付申請書・実施計画書・宣誓同意書・債権者登録申出書・見積書などを準備します。AI.LandBaseが書類作成をサポートし、署名・捺印が必要な箇所だけご対応いただきます。
+          </div>
+          <div class="flow-step-note">
+            ⚠️ 見積書は発行日・発行者・品名・単価・内訳の記載が必須です。「一式」のみの記載は不備となる場合があります。
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-left">
+          <div class="flow-step-num together">3</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-body">
+          <div class="flow-step-header">
+            <div class="flow-step-title">申請書類の提出</div>
+            <span class="role-badge together">一緒に進めます</span>
+          </div>
+          <div class="flow-step-desc">
+            事務局の電子申請フォームまたは郵送で提出します。電子申請が難しい場合は郵送でも対応できます。AI.LandBaseが提出手続きをサポートします。
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-left">
+          <div class="flow-step-num client">4</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-body">
+          <div class="flow-step-header">
+            <div class="flow-step-title">交付決定通知の受領</div>
+            <span class="role-badge client">事業者さま</span>
+          </div>
+          <div class="flow-step-desc">
+            事務局から交付決定通知書が届きます。この通知を受け取った後にシステムの構築を開始します。
+          </div>
+          <div class="flow-step-note">
+            ⚠️ 交付決定前にシステム構築を開始すると補助対象外になります。着手を急ぐ場合は「事前着手届」の提出が必要です。
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-left">
+          <div class="flow-step-num support">5</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-body">
+          <div class="flow-step-header">
+            <div class="flow-step-title">システムの構築・設定</div>
+            <span class="role-badge support">AI.LandBase</span>
+          </div>
+          <div class="flow-step-desc">
+            交付決定後、お宿の環境に合わせてシステムを構築・設定します。完了後に操作方法をご説明します。事業完了期限は2027年1月31日です。
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-left">
+          <div class="flow-step-num support">6</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-body">
+          <div class="flow-step-header">
+            <div class="flow-step-title">実績報告書の提出</div>
+            <span class="role-badge support">AI.LandBaseがサポート</span>
+          </div>
+          <div class="flow-step-desc">
+            システム構築完了後、実績報告書・実績書・領収書・納品書などをまとめて提出します。AI.LandBaseが書類をサポートし、署名・捺印が必要な箇所だけご対応いただきます。
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-left">
+          <div class="flow-step-num client">7</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-body">
+          <div class="flow-step-header">
+            <div class="flow-step-title">精算払請求・補助金の振込</div>
+            <span class="role-badge client">事業者さま → 事務局</span>
+          </div>
+          <div class="flow-step-desc">
+            実績報告の審査が完了後、精算払請求書を提出します。審査通過後、補助金が事業者さまの口座へ振り込まれます。
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ DOCUMENTS ════ -->
+<section id="docs">
+  <div class="wrap">
+    <div class="sec-eyebrow">必要書類</div>
+    <h2>申請に必要な書類</h2>
+    <p class="lead">書類の作成はAI.LandBaseがサポートします。署名・捺印が必要な箇所のみご対応ください。</p>
+
+    <div class="doc-phase">
+      <div class="doc-phase-ttl">① 申請時に提出する書類</div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="doc-num">01</div>
+          <div class="doc-body">
+            <div class="doc-name">交付申請書</div>
+            <div class="doc-desc">補助金の交付を申請する主要書類。施設情報・補助対象経費の概要を記載します。</div>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-num">02</div>
+          <div class="doc-body">
+            <div class="doc-name">実施計画書</div>
+            <div class="doc-desc">どのようなシステムを、いくらで構築するかの計画を記載します。</div>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-num">03</div>
+          <div class="doc-body">
+            <div class="doc-name">宣誓・同意書</div>
+            <div class="doc-desc">申請要件を満たしていることの宣誓と、審査への同意を記載します。</div>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-num">04</div>
+          <div class="doc-body">
+            <div class="doc-name">債権・債務者登録申出書</div>
+            <div class="doc-desc">補助金の振込先口座を登録するための書類です。</div>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-num">—</div>
+          <div class="doc-body">
+            <div class="doc-name">見積書・カタログ</div>
+            <div class="doc-desc">補助対象経費の根拠書類。発行日・発行者・品名・単価・金額内訳の記載が必須です。AI.LandBaseが準備します。</div>
+          </div>
+        </div>
+        <div class="doc-item optional">
+          <div class="doc-num">05</div>
+          <div class="doc-body">
+            <div class="doc-name">事前着手届 <span class="doc-tag opt">必要な場合のみ</span></div>
+            <div class="doc-desc">交付決定の前にシステム構築を開始する必要がある場合に提出します。提出・承認なしに着手すると補助対象外になります。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-phase">
+      <div class="doc-phase-ttl">② 実績報告時に提出する書類（構築完了後）</div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="doc-num">06</div>
+          <div class="doc-body">
+            <div class="doc-name">実績報告書</div>
+            <div class="doc-desc">補助事業の完了を報告する書類。実施内容・経費の実績を記載します。</div>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-num">07</div>
+          <div class="doc-body">
+            <div class="doc-name">実績書</div>
+            <div class="doc-desc">実績の詳細を記録する書類です。</div>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-num">08</div>
+          <div class="doc-body">
+            <div class="doc-name">消費税仕入控除税額報告書</div>
+            <div class="doc-desc">消費税に関する報告書。消費税の課税事業者かどうかによって内容が変わります。</div>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-num">09</div>
+          <div class="doc-body">
+            <div class="doc-name">精算払請求書</div>
+            <div class="doc-desc">補助金の支払いを請求する書類です。</div>
+          </div>
+        </div>
+        <div class="doc-item">
+          <div class="doc-num">—</div>
+          <div class="doc-body">
+            <div class="doc-name">領収書・納品書</div>
+            <div class="doc-desc">システム構築費用の支払い証憑です。AI.LandBaseが準備します。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-support-note">
+      書類の作成はAI.LandBaseがサポートします。署名・捺印が必要な箇所と、事業者さまにご用意いただく情報（口座情報・施設情報など）については、個別にご案内します。
+    </div>
+  </div>
+</section>
+
+<!-- ════ CAUTIONS ════ -->
+<section id="cautions">
+  <div class="wrap">
+    <div class="sec-eyebrow">注意点</div>
+    <h2>申請時の重要な注意点</h2>
+    <p class="lead">以下の点を把握しておくことで、申請のやり直しや補助対象外になるリスクを防げます。</p>
+
+    <div class="caution-list">
+      <div class="caution">
+        <div class="caution-num">1</div>
+        <div class="caution-body">
+          <div class="caution-title">交付決定前の着手は補助対象外になります</div>
+          <div class="caution-desc">
+            交付申請書を提出し、事務局から交付決定通知を受け取った後でないとシステム構築を開始できません。急いで着手が必要な場合は、事前に「事前着手届」を提出・承認を得てください。AI.LandBaseが手続きをサポートします。
+          </div>
+        </div>
+      </div>
+      <div class="caution">
+        <div class="caution-num">2</div>
+        <div class="caution-body">
+          <div class="caution-title">特別徴収義務者の登録が申請の前提条件です</div>
+          <div class="caution-desc">
+            補助金を申請するには、沖縄県に宿泊税の特別徴収義務者として登録申請していることが必要です。まだ登録がお済みでない場合は、先に登録手続きを進めてください。
+          </div>
+        </div>
+      </div>
+      <div class="caution">
+        <div class="caution-num">3</div>
+        <div class="caution-body">
+          <div class="caution-title">見積書の記載不備に注意してください</div>
+          <div class="caution-desc">
+            見積書には「発行日・発行者・品名・単価・金額内訳」の記載が必須です。「一式 ○○万円」のような記載だけでは書類不備となる場合があります。AI.LandBaseが作成する見積書は要件を満たした形式で準備します。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SUPPORT ════ -->
+<section id="support">
+  <div class="wrap">
+    <div class="sec-eyebrow">サポート内容</div>
+    <h2>AI.LandBaseのサポート内容</h2>
+    <p class="lead">申請から運用開始まで、必要な手続きを一緒に進めます。</p>
+
+    <div class="support-grid">
+      <div class="support-card full">
+        <div class="support-ttl">基本的な流れ：署名・捺印とご確認だけお願いします</div>
+        <div class="support-desc">書類の作成・提出・実績報告はAI.LandBaseがサポートします。事業者さまには書類への署名・捺印と、内容のご確認をお願いしています。</div>
+      </div>
+      <div class="support-card">
+        <div class="support-ttl">申請書類の作成</div>
+        <div class="support-desc">交付申請書・実施計画書・見積書など、申請に必要な書類を準備します。</div>
+      </div>
+      <div class="support-card">
+        <div class="support-ttl">提出手続きのサポート</div>
+        <div class="support-desc">電子申請または郵送での提出手続きをサポートします。</div>
+      </div>
+      <div class="support-card">
+        <div class="support-ttl">システムの構築・設定</div>
+        <div class="support-desc">交付決定後、お宿の環境に合わせてシステムを構築・設定します。</div>
+      </div>
+      <div class="support-card">
+        <div class="support-ttl">実績報告書類の作成</div>
+        <div class="support-desc">実績報告書・実績書・納品書など、完了報告に必要な書類を準備します。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CONTACT ════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-eyebrow">お問い合わせ</div>
+    <h2>まずはご相談ください</h2>
+    <p class="lead">補助金申請の手続きや、現在の状況についてお気軽にお問い合わせください。相談・見積もりは無料です。</p>
+
+    <div class="contact-box">
+      <div class="contact-main">
+        <div class="contact-eyebrow">AI.LandBase　担当：○○</div>
+        <div class="contact-tel">090-XXXX-XXXX</div>
+        <div class="contact-note">月〜土　9:00〜18:00　／　出張対応可（やんばる7市村）<br>LINEでのご相談もお気軽にどうぞ。</div>
+      </div>
+      <div class="contact-office">
+        <strong>補助金事務局（沖縄県公式）</strong>
+        電話：0120-153-048<br>
+        平日 10:00〜17:00<br>
+        shukuhakuzei-system.okinawa
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="foot-logo">AI.LandBase</div>
+  <div class="foot-sub">やんばるの宿泊事業者さまを、現場からシステムまで支えます。</div>
+</footer>
+
+<!-- ── スマホ用ボトムナビ ── -->
+<nav id="mobile-nav">
+  <a href="#flow">申請の流れ</a>
+  <a href="#docs">必要書類</a>
+  <a href="#cautions">注意点</a>
+  <a href="#contact">相談する</a>
+</nav>
+
+</body>
+</html>

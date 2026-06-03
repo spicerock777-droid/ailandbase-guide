@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宿泊税対応ガイド｜AI.LandBase</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+:root {
+  --green-dark:  #1f4a33;
+  --green-mid:   #2d6a4f;
+  --green-light: #eaf3ed;
+  --green-line:  #b8d4c2;
+  --brown:       #8d5a3a;
+  --brown-light: #f3ece6;
+  --brown-line:  #d4b49a;
+  --cream:       #fdf8ef;
+  --bg:          #f5f0e8;
+  --text-dark:   #1a2e22;
+  --text-mid:    #3d5a47;
+  --text-muted:  #6a7a6e;
+  --white:       #ffffff;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+  line-height: 1.7;
+}
+
+/* ════ NAV ════ */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--green-line);
+  z-index: 100;
+  padding: 0 20px;
+}
+.nav-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+.nav-logo {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--green-dark);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--green-mid); font-weight: 300; }
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 8pt;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--green-dark); }
+@media(max-width:600px){ .nav-links { display: none; } }
+
+/* ── スマホ用ボトムナビ ── */
+#mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--green-line);
+  z-index: 100;
+  padding: 10px 0 max(10px, env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: space-around;
+}
+#mobile-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 8pt;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+#mobile-nav a:hover { color: var(--green-dark); }
+@media(min-width:601px){ #mobile-nav { display: none !important; } }
+
+/* ════ LAYOUT ════ */
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+section { padding: 72px 0; }
+@media(max-width:600px){
+  section { padding: 48px 0; }
+  .wrap { padding: 0 16px; }
+}
+section:nth-child(even) { background: var(--white); }
+
+.sec-eyebrow {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--green-mid);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.sec-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--green-line); max-width: 60px; }
+
+h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(18pt, 4vw, 22pt);
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.55;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+}
+.lead {
+  font-size: 10pt;
+  color: var(--text-mid);
+  line-height: 2.0;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+/* ════ HERO ════ */
+#hero {
+  padding-top: 130px;
+  padding-bottom: 72px;
+  background: var(--cream);
+  border-bottom: 2px solid var(--green-dark);
+}
+.hero-badge {
+  display: inline-block;
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--green-mid);
+  border: 1.5px solid var(--green-mid);
+  padding: 3px 12px;
+  letter-spacing: 0.18em;
+  margin-bottom: 18px;
+}
+.hero-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22pt, 6vw, 30pt);
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+}
+.hero-sub {
+  font-size: 10.5pt;
+  color: var(--text-mid);
+  line-height: 2.0;
+  font-weight: 300;
+  max-width: 540px;
+  padding-left: 14px;
+  border-left: 2px solid var(--green-mid);
+  margin-bottom: 36px;
+}
+.hero-cta {
+  display: inline-block;
+  padding: 15px 36px;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  background: var(--green-dark);
+  color: white;
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  transition: background .2s;
+}
+.hero-cta:hover { background: var(--green-mid); }
+
+/* ════ FLOW DIAGRAM ════ */
+.flow-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 36px 0 24px;
+  flex-wrap: wrap;
+}
+@media(max-width:520px){
+  .flow-wrap { flex-direction: column; align-items: stretch; }
+  .flow-arr { transform: rotate(90deg); align-self: center; }
+  .flow-node { min-width: 0; }
+}
+.flow-node {
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+  padding: 14px 8px;
+  border: 1px solid var(--green-line);
+  background: rgba(255,255,255,0.7);
+  font-size: 8.5pt;
+  color: var(--text-dark);
+  line-height: 1.55;
+}
+.flow-node.sys {
+  background: var(--green-light);
+  border-color: var(--green-mid);
+  color: var(--green-dark);
+  font-weight: 500;
+}
+.flow-node small {
+  display: block;
+  font-size: 8pt;
+  color: var(--text-muted);
+  margin-top: 3px;
+  font-weight: 400;
+}
+.flow-arr {
+  padding: 0 6px;
+  color: var(--green-line);
+  font-size: 14pt;
+  flex-shrink: 0;
+}
+.flow-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9pt;
+  color: var(--text-muted);
+}
+.legend-box {
+  width: 14px; height: 12px;
+  border: 1px solid;
+  flex-shrink: 0;
+}
+.legend-box.normal { background: rgba(255,255,255,0.7); border-color: var(--green-line); }
+.legend-box.sys    { background: var(--green-light); border-color: var(--green-mid); }
+
+/* ════ FEATURES GRID ════ */
+.feat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 8px;
+}
+@media(max-width:520px){ .feat-grid { grid-template-columns: 1fr; } }
+.feat-card {
+  padding: 18px 16px;
+  border-left: 3px solid var(--green-mid);
+  background: var(--white);
+  border-top: 1px solid var(--green-line);
+  border-right: 1px solid var(--green-line);
+  border-bottom: 1px solid var(--green-line);
+}
+.feat-title { font-size: 9.5pt; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; }
+.feat-desc  { font-size: 9.5pt; color: var(--text-muted); line-height: 1.8; }
+
+/* ════ SCOPE (できないこと) ════ */
+.scope-note {
+  background: var(--cream);
+  border: 1px solid var(--green-line);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  font-size: 9pt;
+  color: var(--text-mid);
+  line-height: 1.9;
+}
+.scope-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  list-style: none;
+}
+@media(max-width:480px){ .scope-list { grid-template-columns: 1fr; } }
+.scope-list li {
+  padding: 10px 14px;
+  background: var(--white);
+  border: 1px solid var(--green-line);
+  font-size: 9.5pt;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scope-list li::before {
+  content: '—';
+  color: var(--green-line);
+  flex-shrink: 0;
+}
+
+/* ════ FAQ ════ */
+.faq-list { display: flex; flex-direction: column; gap: 1px; margin-top: 8px; }
+details {
+  background: var(--white);
+  border: 1px solid var(--green-line);
+}
+details + details { margin-top: 6px; }
+summary {
+  padding: 16px 48px 16px 18px;
+  font-size: 9pt;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  line-height: 1.6;
+  user-select: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: '+';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16pt;
+  color: var(--green-mid);
+  font-weight: 300;
+  line-height: 1;
+  transition: transform .2s;
+}
+details[open] summary::after {
+  content: '−';
+}
+details[open] {
+  border-color: var(--green-mid);
+}
+details[open] summary {
+  color: var(--green-dark);
+  border-bottom: 1px solid var(--green-line);
+}
+.faq-answer {
+  padding: 16px 18px 18px;
+  font-size: 9.5pt;
+  color: var(--text-mid);
+  line-height: 1.9;
+}
+.faq-label {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: var(--green-mid);
+  letter-spacing: 0.14em;
+  margin-bottom: 4px;
+}
+
+/* ════ STEP FLOW ════ */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 8px;
+  max-width: 540px;
+}
+.step {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.step-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 40px;
+}
+.step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--green-dark);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10pt;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.step-line {
+  width: 1px;
+  flex: 1;
+  min-height: 28px;
+  background: var(--green-line);
+  margin: 4px 0;
+}
+.step:last-child .step-line { display: none; }
+.step-body {
+  padding-top: 6px;
+  padding-bottom: 24px;
+}
+.step-title {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+.step-desc {
+  font-size: 9.5pt;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* ════ SUBSIDY BOX ════ */
+.subsidy-box {
+  background: var(--green-light);
+  border: 1.5px solid var(--green-line);
+  padding: 20px 22px;
+  margin-top: 40px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.subsidy-nums { display: flex; gap: 24px; flex-shrink: 0; }
+.sub-lbl { font-size: 8.5pt; color: var(--text-muted); letter-spacing: 0.14em; margin-bottom: 3px; }
+.sub-val { font-size: 16pt; font-weight: 700; color: var(--green-dark); line-height: 1.2; }
+.sub-val small { font-size: 9pt; font-weight: 400; color: var(--text-mid); }
+.sub-divider { width: 1px; background: var(--green-line); align-self: stretch; }
+.sub-detail { font-size: 9pt; color: var(--text-muted); line-height: 1.9; }
+.sub-detail strong { display: block; font-size: 9.5pt; color: var(--green-dark); margin-bottom: 5px; }
+
+/* ════ CONTACT FORM ════ */
+#contact { background: var(--cream); }
+.form-wrap {
+  background: var(--white);
+  border: 1px solid var(--green-line);
+  padding: 32px 28px;
+  margin-top: 8px;
+}
+@media(max-width:520px){ .form-wrap { padding: 22px 16px; } }
+.fg { margin-bottom: 18px; }
+.fl {
+  display: block;
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.fl .req {
+  color: var(--brown);
+  margin-left: 4px;
+  font-size: 8pt;
+}
+.fi, .fs, .ft {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--green-line);
+  background: var(--cream);
+  color: var(--text-dark);
+  font-family: inherit;
+  font-size: 9pt;
+  outline: none;
+  transition: border .2s;
+  -webkit-appearance: none;
+}
+.fi:focus, .fs:focus, .ft:focus {
+  border-color: var(--green-mid);
+  background: #fff;
+}
+.fi::placeholder, .ft::placeholder { color: rgba(106,122,110,.4); }
+.ft { height: 110px; resize: vertical; }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:480px){ .frow { grid-template-columns: 1fr; } }
+.fsub {
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px;
+  background: var(--green-dark);
+  color: white;
+  border: none;
+  font-family: inherit;
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  transition: background .2s;
+}
+.fsub:hover { background: var(--green-mid); }
+.form-note {
+  font-size: 9pt;
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.8;
+}
+.form-section {
+  border-top: 1px solid var(--green-line);
+  padding-top: 22px;
+  margin-top: 22px;
+}
+.form-section-ttl {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: var(--green-mid);
+  letter-spacing: 0.18em;
+  margin-bottom: 4px;
+}
+.form-section-sub {
+  font-size: 9pt;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  line-height: 1.7;
+}
+.check-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+}
+@media(max-width:480px){ .check-grid { grid-template-columns: 1fr; } }
+.ck-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9.5pt;
+  color: var(--text-dark);
+  cursor: pointer;
+  line-height: 1.5;
+  padding: 5px 0;
+}
+.ck-label input[type="checkbox"],
+.ck-label input[type="radio"] {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--green-line);
+  border-radius: 2px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--cream);
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  transition: border-color .2s, background .2s;
+}
+.ck-label input[type="radio"] { border-radius: 50%; }
+.ck-label input[type="checkbox"]:checked,
+.ck-label input[type="radio"]:checked {
+  background: var(--green-mid);
+  border-color: var(--green-mid);
+}
+.ck-label input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px; top: 1px;
+  width: 7px; height: 4px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg);
+}
+.ck-label input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px; top: 3px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: white;
+}
+.form-ok {
+  display: none;
+  padding: 28px;
+  background: var(--green-light);
+  border: 1px solid var(--green-line);
+  text-align: center;
+  animation: fadeIn .4s ease;
+}
+.form-ok-ttl { font-size: 11pt; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; }
+.form-ok-sub { font-size: 9.5pt; color: var(--text-muted); line-height: 1.8; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ════ FOOTER ════ */
+footer {
+  background: var(--green-dark);
+  padding: 28px 24px;
+  text-align: center;
+}
+.foot-logo { font-size: 13pt; font-weight: 700; color: white; letter-spacing: 0.04em; margin-bottom: 6px; }
+.foot-sub { font-size: 9pt; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<header id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">AI.<span>Land</span>Base</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#features">できること</a></li>
+        <li><a href="#scope">対象範囲</a></li>
+        <li><a href="#faq">よくある質問</a></li>
+        <li><a href="#flow">導入の流れ</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-badge">宿泊税対応ガイド</div>
+    <h1 class="hero-title">宿泊税対応を、<br>もっとシンプルに。</h1>
+    <p class="hero-sub">
+      宿泊税対応に必要な計算・集計・申告データ作成・領収書発行を支援するシステムを提供しています。<br>
+      お宿の環境に合わせてご提案・構築します。
+    </p>
+    <a class="hero-cta" href="#contact">ご相談はこちら（無料）</a>
+  </div>
+</section>
+
+<!-- ════ FEATURES ════ -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-eyebrow">できること</div>
+    <h2>このシステムでできること</h2>
+    <p class="lead">
+      宿泊税の導入後、毎月発生する定型業務を整理します。<br>
+      計算・集計・申告データ作成・領収書発行はシステムがサポートします。
+    </p>
+
+    <div class="flow-wrap">
+      <div class="flow-node">宿泊実績<br>の確認<small>（台帳・予約記録などから）</small></div>
+      <div class="flow-arr">›</div>
+      <div class="flow-node sys">宿泊税<br>計算</div>
+      <div class="flow-arr">›</div>
+      <div class="flow-node sys">月次<br>集計</div>
+      <div class="flow-arr">›</div>
+      <div class="flow-node sys">申告データ<br>作成</div>
+      <div class="flow-arr">›</div>
+      <div class="flow-node sys">領収書<br>発行</div>
+      <div class="flow-arr">›</div>
+      <div class="flow-node">県への<br>申告・納付</div>
+    </div>
+    <div class="flow-legend" style="margin-bottom:32px">
+      <div class="legend-item"><div class="legend-box normal"></div>ご自身での対応</div>
+      <div class="legend-item"><div class="legend-box sys"></div>システムがサポート</div>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-title">宿泊税額の自動計算</div>
+        <div class="feat-desc">税率2%・上限2,000円・課税標準の1,000円未満切り捨てに対応。毎回の手計算が不要になります。</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-title">月次集計レポート</div>
+        <div class="feat-desc">毎月の宿泊者数と宿泊税額を自動で集計します。申告前の確認作業をスムーズに行えます。</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-title">申告データの出力</div>
+        <div class="feat-desc">申告に必要なデータをまとめて出力します。転記や集計の手間を減らします。</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-title">領収書への税額記載</div>
+        <div class="feat-desc">領収書・請求書に宿泊税額を自動で印字します。発行のたびに手書きする必要がなくなります。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SCOPE ════ -->
+<section id="scope">
+  <div class="wrap">
+    <div class="sec-eyebrow">対象範囲</div>
+    <h2>このシステムの対象外</h2>
+    <p class="lead">
+      本システムは宿泊税対応業務に特化しています。<br>
+      以下の機能は対象外です。
+    </p>
+    <div class="scope-note">
+      現在ご利用の予約システムや管理ツールをそのままお使いいただけます。<br>
+      宿泊税対応に必要な機能だけを追加する形で導入できます。
+    </div>
+    <ul class="scope-list">
+      <li>予約管理・空室管理</li>
+      <li>PMS（宿泊管理システム）</li>
+      <li>OTA連携（じゃらん・楽天など）</li>
+      <li>決済・精算システム</li>
+      <li>チェックイン・チェックアウト管理</li>
+      <li>顧客管理（CRM）</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-eyebrow">よくある質問</div>
+    <h2>よくある質問</h2>
+    <p class="lead">
+      お問い合わせの前に、よくいただくご質問をまとめました。
+    </p>
+
+    <div class="faq-list">
+
+      <details>
+        <summary>今使っている予約システムは変更が必要ですか？</summary>
+        <div class="faq-answer">
+          <div class="faq-label">A.</div>
+          いいえ、現在ご利用の予約システムはそのままお使いいただけます。本システムは宿泊税対応業務に特化しており、既存の予約管理との連携は必要ありません。現在の運営方法を変えずに導入できます。
+        </div>
+      </details>
+
+      <details>
+        <summary>小規模な民宿でも利用できますか？</summary>
+        <div class="faq-answer">
+          <div class="faq-label">A.</div>
+          はい。家族経営や少人数運営の施設を想定して設計しています。部屋数や宿泊者数の規模を問わず対応できます。まずは現状をお聞かせいただき、必要な範囲をご提案します。
+        </div>
+      </details>
+
+      <details>
+        <summary>パソコンが苦手でも使えますか？</summary>
+        <div class="faq-answer">
+          <div class="faq-label">A.</div>
+          お宿の状況に合わせてシンプルな操作になるよう構築します。導入時に操作方法をご説明し、運用開始後も相談できる体制を設けています。「操作が心配」という方も、まずはご相談ください。
+        </div>
+      </details>
+
+      <details>
+        <summary>宿泊税のルールが変更された場合はどうなりますか？</summary>
+        <div class="faq-answer">
+          <div class="faq-label">A.</div>
+          制度変更の内容に応じて、対応を別途ご相談します。変更内容が明らかになった時点でご連絡し、必要な対応をご案内します。
+        </div>
+      </details>
+
+      <details>
+        <summary>導入までどれくらいの期間がかかりますか？</summary>
+        <div class="faq-answer">
+          <div class="faq-label">A.</div>
+          お宿の環境や必要な機能によって異なります。お問い合わせいただいた後、現状確認を行ってからご案内します。まずは無料でご相談ください。
+        </div>
+      </details>
+
+      <details>
+        <summary>領収書の発行はできますか？</summary>
+        <div class="faq-answer">
+          <div class="faq-label">A.</div>
+          はい。宿泊税額を含む領収書の発行に対応しています。沖縄県の宿泊税対応では、領収書への宿泊税額の記載が必要となります。
+        </div>
+      </details>
+
+      <details>
+        <summary>補助金の対象になりますか？</summary>
+        <div class="faq-answer">
+          <div class="faq-label">A.</div>
+          沖縄県の「宿泊税対応システム改修等補助金」の対象となります。補助率100%・上限200万円（税抜・1施設）で、システムの新規構築・既存システムの改修・ソフトウェア購入などが対象経費になります。補助金申請書類の作成サポートも行っています。
+        </div>
+      </details>
+
+      <details>
+        <summary>手出し金はかかりますか？</summary>
+        <div class="faq-answer">
+          <div class="faq-label">A.</div>
+          補助金（補助率100%・上限200万円・税抜）を活用する場合の手出し金は以下のとおりです。<br><br>
+          <ul style="padding-left:1.2em;line-height:2.1;color:var(--text-mid)">
+            <li><strong>消費税分（10%）</strong>：消費税は補助対象外のため、税額分が自己負担となります</li>
+            <li><strong>200万円（税抜）を超える部分</strong>：超過分は自己負担となります</li>
+            <li><strong>精算払いのための一時立替</strong>：この補助金は精算払い方式です。先にシステム費用をお支払いいただき、実績報告後に補助金が口座へ振り込まれます</li>
+          </ul><br>
+          費用の見積もりとあわせて、補助金の活用方法についてもご説明します。
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ FLOW ════ -->
+<section id="flow">
+  <div class="wrap">
+    <div class="sec-eyebrow">導入の流れ</div>
+    <h2>導入までの流れ</h2>
+    <p class="lead">お問い合わせから運用開始まで、一緒に進めます。</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">お問い合わせ</div>
+          <div class="step-desc">電話またはLINEでお気軽にご連絡ください。相談・見積もりは無料です。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">現状確認</div>
+          <div class="step-desc">現在の運営環境・使用しているシステム・業務の流れをお聞きします。訪問またはオンラインで対応します。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">ご提案</div>
+          <div class="step-desc">現状確認をもとに、必要な対応と費用をご提案します。補助金の活用についてもあわせてご案内します。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">補助金申請（書類準備・提出）</div>
+          <div class="step-desc">申請書類の作成をAI.LandBaseがサポートします。署名・捺印が必要な箇所のみご対応ください。書類提出後、事務局から交付決定通知が届きます。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">5</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">構築・設定（交付決定後）</div>
+          <div class="step-desc">交付決定通知を受け取った後、お宿の環境に合わせてシステムを構築・設定します。完了後に操作方法をご説明します。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">6</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">実績報告・補助金受取</div>
+          <div class="step-desc">構築完了後、実績報告書類の提出をサポートします。審査通過後、補助金が口座へ振り込まれます。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left">
+          <div class="step-num">7</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">運用開始</div>
+          <div class="step-desc">実際の運用を開始します。運用後も相談できる体制をご用意しています。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsidy-box">
+      <div class="subsidy-nums">
+        <div>
+          <div class="sub-lbl">補助率</div>
+          <div class="sub-val">100%<small>（全額補助）</small></div>
+        </div>
+        <div>
+          <div class="sub-lbl">上限額</div>
+          <div class="sub-val">200万円<small> / 1施設</small></div>
+        </div>
+      </div>
+      <div class="sub-divider"></div>
+      <div class="sub-detail">
+        <strong>沖縄県　宿泊税対応システム改修等補助金</strong>
+        対象経費：システムの新規構築・既存システムの改修・ソフトウェア・ハードウェアの購入など<br>
+        補助金申請書類の作成もサポートしています。詳しくはご相談ください。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CONTACT ════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-eyebrow">お問い合わせ</div>
+    <h2>ご相談・お問い合わせ</h2>
+    <p class="lead">
+      相談・見積もりは無料です。<br>
+      「まだ検討段階」「話を聞いてみたい」という段階でも、お気軽にどうぞ。
+    </p>
+
+    <div class="form-wrap">
+      <form id="contactForm" novalidate>
+        <div class="frow">
+          <div class="fg">
+            <label class="fl" for="f-name">お名前<span class="req">必須</span></label>
+            <input class="fi" type="text" id="f-name" placeholder="山田 太郎" required>
+          </div>
+          <div class="fg">
+            <label class="fl" for="f-facility">施設名<span class="req">必須</span></label>
+            <input class="fi" type="text" id="f-facility" placeholder="○○民宿" required>
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label class="fl" for="f-tel">電話番号</label>
+            <input class="fi" type="tel" id="f-tel" placeholder="090-0000-0000">
+          </div>
+          <div class="fg">
+            <label class="fl" for="f-email">メールアドレス</label>
+            <input class="fi" type="email" id="f-email" placeholder="your@email.com">
+          </div>
+        </div>
+        <!-- 現在の環境ヒアリング -->
+        <div class="form-section">
+          <div class="form-section-ttl">現在の環境について（任意）</div>
+          <div class="form-section-sub">お宿に合ったシステムをご提案するために、現在の状況をお聞かせください。</div>
+
+          <div class="fg">
+            <label class="fl">予約の受付方法（複数選択可）</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="checkbox" name="booking" value="tel">電話・FAX</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="jalan">じゃらんnet</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="rakuten">楽天トラベル</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="airbnb">Airbnb</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="booking">Booking.com</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="neppan">ねっぱん</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="channel">チャネルマネージャー</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="own">自社ホームページ</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="other_ota">その他OTA</label>
+              <label class="ck-label"><input type="checkbox" name="booking" value="other">その他</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl" for="f-system">使用している予約管理システム名（自由記入）</label>
+            <input class="fi" type="text" id="f-system" name="system" placeholder="例：ねっぱん、TLリンカーン、自社システム など">
+          </div>
+
+          <div class="fg">
+            <label class="fl">予約台帳の管理方法</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="ledger" value="paper">紙の台帳</label>
+              <label class="ck-label"><input type="radio" name="ledger" value="excel">Excel・スプレッドシート</label>
+              <label class="ck-label"><input type="radio" name="ledger" value="system">予約管理システム</label>
+              <label class="ck-label"><input type="radio" name="ledger" value="other">その他</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">領収書の発行方法</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="receipt" value="hand">手書き</label>
+              <label class="ck-label"><input type="radio" name="receipt" value="excel">Word・Excel</label>
+              <label class="ck-label"><input type="radio" name="receipt" value="system">システムで発行</label>
+              <label class="ck-label"><input type="radio" name="receipt" value="none">発行していない</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">お使いのデジタル機器（複数選択可）</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="checkbox" name="device" value="pc">パソコン</label>
+              <label class="ck-label"><input type="checkbox" name="device" value="smartphone">スマートフォン</label>
+              <label class="ck-label"><input type="checkbox" name="device" value="tablet">タブレット</label>
+              <label class="ck-label"><input type="checkbox" name="device" value="none">あまり使っていない</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl" for="f-rooms">部屋数（おおよそ）</label>
+            <select class="fs" id="f-rooms" name="rooms">
+              <option value="">選択してください</option>
+              <option value="1-3">1〜3室</option>
+              <option value="4-10">4〜10室</option>
+              <option value="11-20">11〜20室</option>
+              <option value="21over">21室以上</option>
+            </select>
+          </div>
+
+          <div class="fg">
+            <label class="fl">インターネット環境</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="internet" value="stable">安定した常時接続がある</label>
+              <label class="ck-label"><input type="radio" name="internet" value="mobile">モバイル回線のみ</label>
+              <label class="ck-label"><input type="radio" name="internet" value="unstable">つながりにくい場所がある</label>
+              <label class="ck-label"><input type="radio" name="internet" value="none">ほぼ使っていない</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">プリンターの有無</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="printer" value="yes">ある</label>
+              <label class="ck-label"><input type="radio" name="printer" value="no">ない</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="fg">
+          <label class="fl" for="f-msg">ご相談内容・気になっていること</label>
+          <textarea class="ft" id="f-msg" placeholder="現在の課題や、気になっていることなど、自由にお書きください。"></textarea>
+        </div>
+        <button type="submit" class="fsub">送信する</button>
+      </form>
+      <div class="form-ok" id="formOk">
+        <div class="form-ok-ttl">お問い合わせを受け付けました</div>
+        <div class="form-ok-sub">内容を確認のうえ、担当者よりご連絡いたします。<br>通常2〜3営業日以内にご連絡します。</div>
+      </div>
+      <p class="form-note">
+        電話でのご相談：090-XXXX-XXXX（担当：○○　月〜土 9:00〜18:00）<br>
+        LINEでのご相談もお気軽にどうぞ。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="foot-logo">AI.LandBase</div>
+  <div class="foot-sub">やんばるの宿泊事業者さまを、現場からシステムまで支えます。</div>
+</footer>
+
+<!-- ── スマホ用ボトムナビ ── -->
+<nav id="mobile-nav">
+  <a href="#features">できること</a>
+  <a href="#faq">よくある質問</a>
+  <a href="#flow">導入の流れ</a>
+  <a href="#contact">相談する</a>
+</nav>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name     = document.getElementById('f-name').value.trim();
+  const facility = document.getElementById('f-facility').value.trim();
+  if(!name || !facility) return;
+  this.style.display = 'none';
+  document.getElementById('formOk').style.display = 'block';
+});
+</script>
+</body>
+</html>

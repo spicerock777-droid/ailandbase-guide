@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI.LandBase｜宿泊税対応を、わかりやすく。</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --green-dark:  #1f4a33;
+    --green-mid:   #2d6a4f;
+    --green-light: #eaf3ed;
+    --green-line:  #b8d4c2;
+    --brown:       #8d5a3a;
+    --brown-light: #f3ece6;
+    --brown-line:  #d4b49a;
+    --cream:       #fff8e7;
+    --text-dark:   #1a2e22;
+    --text-mid:    #3d5a47;
+    --text-muted:  #6a7a6e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #d8cfc4;
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+    min-height: 100vh;
+  }
+  @media(max-width:600px){
+    body { padding: 8px; background: #fff; }
+    .page { width: 100%; min-height: auto; box-shadow: none; }
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--cream);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── ヘッダー帯 ── */
+  .page-header {
+    background: var(--green-dark);
+    padding: 10px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo { font-size: 12pt; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
+  .logo span { color: rgba(255,255,255,0.5); font-weight: 300; }
+  .header-sub { font-size: 8pt; color: rgba(255,255,255,0.5); letter-spacing: 0.12em; }
+
+  /* ── ヒーロー ── */
+  .hero {
+    padding: 26px 28px 22px;
+    border-bottom: 1px solid var(--green-line);
+  }
+  .hero-eyebrow {
+    font-size: 8pt;
+    color: var(--text-muted);
+    letter-spacing: 0.22em;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .hero-catch {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 24pt;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+  }
+  .hero-sub {
+    font-size: 9pt;
+    color: var(--text-mid);
+    line-height: 1.9;
+    font-weight: 300;
+    padding-left: 12px;
+    border-left: 2px solid var(--green-mid);
+  }
+
+  /* ── コンテンツ ── */
+  .content {
+    flex: 1;
+    padding: 18px 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sec-label {
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--green-mid);
+    letter-spacing: 0.22em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--green-line); }
+
+  /* ── 月次フロー図 ── */
+  .flow-section {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--green-line);
+    padding: 15px 16px;
+  }
+  .flow-intro {
+    font-size: 9pt;
+    color: var(--text-mid);
+    line-height: 1.85;
+    margin-bottom: 14px;
+  }
+  .flow-row {
+    display: flex;
+    align-items: stretch;
+  }
+  .flow-step {
+    flex: 1;
+    text-align: center;
+    padding: 9px 4px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--green-line);
+    font-size: 8.5pt;
+    color: var(--text-dark);
+    line-height: 1.55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .flow-step.sys {
+    background: var(--green-light);
+    border-color: var(--green-mid);
+    color: var(--green-dark);
+    font-weight: 500;
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 3px;
+    color: var(--green-line);
+    font-size: 11pt;
+    flex-shrink: 0;
+  }
+  .flow-legend {
+    display: flex;
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8pt;
+    color: var(--text-muted);
+  }
+  .legend-box {
+    width: 13px;
+    height: 10px;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
+  .legend-box.normal { background: rgba(255,255,255,0.7); border-color: var(--green-line); }
+  .legend-box.sys    { background: var(--green-light); border-color: var(--green-mid); }
+
+  /* ── 機能4つ ── */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .feature {
+    padding: 10px 13px;
+    border-left: 3px solid var(--green-mid);
+    background: rgba(255,255,255,0.6);
+  }
+  .feature-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 3px;
+  }
+  .feature-desc {
+    font-size: 8.5pt;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── 補助金 ── */
+  .subsidy {
+    background: var(--green-light);
+    border: 1.5px solid var(--green-line);
+    padding: 13px 16px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .subsidy-nums { display: flex; gap: 20px; flex-shrink: 0; }
+  .sub-lbl { font-size: 8pt; color: var(--text-muted); letter-spacing: 0.14em; margin-bottom: 2px; }
+  .sub-val { font-size: 13pt; font-weight: 700; color: var(--green-dark); line-height: 1.2; }
+  .sub-val small { font-size: 8pt; font-weight: 400; color: var(--text-mid); }
+  .subsidy-divider { width: 1px; background: var(--green-line); align-self: stretch; flex-shrink: 0; }
+  .subsidy-name { font-size: 8.5pt; font-weight: 700; color: var(--green-dark); margin-bottom: 5px; }
+  .subsidy-detail { font-size: 8pt; color: var(--text-muted); line-height: 1.9; }
+
+  /* ── CTA ── */
+  .cta {
+    border: 1.5px solid var(--brown-line);
+    background: var(--brown-light);
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .cta-left { flex: 1; }
+  .cta-eyebrow { font-size: 8pt; color: var(--text-muted); letter-spacing: 0.14em; margin-bottom: 5px; }
+  .cta-tel { font-size: 18pt; font-weight: 700; color: var(--text-dark); letter-spacing: 0.06em; line-height: 1; margin-bottom: 4px; }
+  .cta-note { font-size: 8pt; color: var(--text-muted); line-height: 1.9; }
+  .cta-divider { width: 1px; height: 50px; background: var(--brown-line); flex-shrink: 0; }
+  .cta-right { text-align: center; flex-shrink: 0; }
+  .cta-line-label { font-size: 8pt; color: var(--brown); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .cta-qr {
+    width: 54px; height: 54px;
+    border: 1.5px solid var(--brown-line);
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8pt; color: var(--text-muted); font-weight: 700; line-height: 1.5;
+    margin: 0 auto;
+  }
+
+  /* ── フッター ── */
+  .footer {
+    padding: 10px 28px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1.5px solid var(--green-dark);
+    margin-top: 14px;
+  }
+  .footer-logo { font-size: 10pt; font-weight: 700; color: var(--green-dark); }
+  .footer-sub { font-size: 8pt; color: var(--text-muted); margin-top: 2px; }
+  .footer-right { font-size: 8pt; color: var(--text-muted); text-align: right; line-height: 1.9; }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ヘッダー -->
+  <div class="page-header">
+    <div class="logo">AI.<span>Land</span>Base</div>
+    <div class="header-sub">やんばるの宿泊事業者さまへ</div>
+  </div>
+
+  <!-- ヒーロー -->
+  <div class="hero">
+    <div class="hero-eyebrow">沖縄県宿泊税　対応のご案内</div>
+    <div class="hero-catch">宿泊税対応を、<br>わかりやすく。</div>
+    <div class="hero-sub">
+      計算・集計・申告データ作成・領収書発行を、<br>
+      ひとつの仕組みでサポートします。
+    </div>
+  </div>
+
+  <!-- コンテンツ -->
+  <div class="content">
+
+    <!-- 月次フロー図 -->
+    <div>
+      <div class="sec-label">宿泊税対応の月次業務</div>
+      <div class="flow-section">
+        <div class="flow-intro">
+          宿泊税の導入後、毎月これらの業務が発生します。<br>
+          計算・集計・申告データ作成・領収書発行は、システムがサポートします。
+        </div>
+        <div class="flow-row">
+          <div class="flow-step">宿泊実績<br>の確認</div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step sys">税額<br>計算</div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step sys">月次<br>集計</div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step sys">申告データ<br>作成</div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step sys">領収書<br>発行</div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step">県への<br>申告・納付</div>
+        </div>
+        <div class="flow-legend">
+          <div class="legend-item"><div class="legend-box normal"></div>ご自身での対応</div>
+          <div class="legend-item"><div class="legend-box sys"></div>システムがサポート</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 機能 -->
+    <div>
+      <div class="sec-label">システムでできること</div>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-title">宿泊税額の自動計算</div>
+          <div class="feature-desc">税率2%・上限2,000円・課税標準の1,000円未満切り捨てに自動対応</div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">月次集計レポート</div>
+          <div class="feature-desc">毎月の宿泊者数・宿泊税額を自動で集計します</div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">申告データの出力</div>
+          <div class="feature-desc">申告に必要なデータをまとめて出力します</div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">領収書への税額記載</div>
+          <div class="feature-desc">領収書・請求書に宿泊税額を自動で印字します</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 補助金 -->
+    <div>
+      <div class="sec-label">システム整備に使える補助金</div>
+      <div class="subsidy">
+        <div class="subsidy-nums">
+          <div>
+            <div class="sub-lbl">補助率</div>
+            <div class="sub-val">100%<small>（全額補助）</small></div>
+          </div>
+          <div>
+            <div class="sub-lbl">上限額</div>
+            <div class="sub-val">200万円<small> / 1施設</small></div>
+          </div>
+        </div>
+        <div class="subsidy-divider"></div>
+        <div>
+          <div class="subsidy-name">沖縄県　宿泊税対応システム改修等補助金</div>
+          <div class="subsidy-detail">
+            対象経費：システムの新規構築・既存システムの改修・ソフトウェア・ハードウェアの購入など<br>
+            問い合わせ：0120-153-048（事務局　平日10:00〜17:00）
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <div class="cta-left">
+        <div class="cta-eyebrow">ご相談・お見積もりは無料です</div>
+        <div class="cta-tel">090-XXXX-XXXX</div>
+        <div class="cta-note">担当：○○　（月〜土　9:00〜18:00）<br>出張対応可（やんばる7市村）</div>
+      </div>
+      <div class="cta-divider"></div>
+      <div class="cta-right">
+        <div class="cta-line-label">💬 LINEで相談</div>
+        <div class="cta-qr">QR<br>コード</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <div class="footer">
+    <div>
+      <div class="footer-logo">AI.LandBase</div>
+      <div class="footer-sub">やんばるの宿泊事業者さまを、現場からシステムまで支えます。</div>
+    </div>
+    <div class="footer-right">
+      相談・見積もり無料<br>
+      出張対応可（やんばる7市村）
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
