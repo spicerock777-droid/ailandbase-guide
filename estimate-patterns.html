@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>導入パターン別 概算見積もり表｜AI.LandBase 社内資料</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+:root {
+  --green-dark:  #1f4a33;
+  --green-mid:   #2d6a4f;
+  --green-light: #eaf3ed;
+  --green-line:  #b8d4c2;
+  --brown:       #8d5a3a;
+  --brown-light: #f3ece6;
+  --cream:       #fdf8ef;
+  --bg:          #f5f0e8;
+  --text-dark:   #1a2e22;
+  --text-mid:    #3d5a47;
+  --text-muted:  #6a7a6e;
+  --white:       #ffffff;
+  --red:         #c0392b;
+  --red-light:   #fdf0ee;
+  --orange:      #d35400;
+  --orange-light:#fef5ec;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+/* ── HEADER ── */
+.page-header {
+  background: var(--green-dark);
+  color: #fff;
+  padding: 32px 0 28px;
+}
+.page-header .wrap { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.page-header h1 { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 700; line-height: 1.4; }
+.badge-internal {
+  background: var(--brown);
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+.page-header p { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 6px; }
+
+/* ── SUBSIDY BAR ── */
+.subsidy-bar {
+  background: var(--green-mid);
+  color: #fff;
+  padding: 14px 0;
+  font-size: 13px;
+  text-align: center;
+}
+.subsidy-bar strong { font-size: 16px; }
+
+/* ── SECTION ── */
+section { padding: 48px 0; }
+section + section { border-top: 1px solid var(--green-line); }
+.sec-label {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green-mid);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+h2 { font-family: 'Noto Serif JP', serif; font-size: 20px; color: var(--green-dark); margin-bottom: 20px; }
+
+/* ── PATTERN CARD ── */
+.pattern-card {
+  background: var(--white);
+  border: 1px solid var(--green-line);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.pattern-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  background: var(--green-light);
+  border-bottom: 1px solid var(--green-line);
+}
+.pattern-num {
+  background: var(--green-dark);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.pattern-title { font-weight: 700; font-size: 16px; color: var(--green-dark); }
+.pattern-target { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.complexity {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.complexity.low  { background: #e8f5e9; color: #2e7d32; }
+.complexity.mid  { background: #fff3e0; color: #e65100; }
+.complexity.high { background: #fce4ec; color: #c62828; }
+
+.pattern-body { padding: 20px 24px; }
+
+/* ── COST TABLE ── */
+.cost-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 16px; }
+.cost-table th {
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 2px solid var(--green-line);
+}
+.cost-table td { padding: 10px 14px; border-bottom: 1px solid #e8ede9; vertical-align: top; }
+.cost-table tr:last-child td { border-bottom: none; }
+.cost-table .total-row td {
+  background: var(--cream);
+  font-weight: 700;
+  color: var(--green-dark);
+  border-top: 2px solid var(--green-line);
+}
+.cost-table .subsidy-row td {
+  background: var(--green-light);
+  color: var(--green-mid);
+  font-weight: 700;
+}
+.cost-table .jibara-row td {
+  background: var(--orange-light);
+  color: var(--orange);
+  font-weight: 700;
+}
+.amount { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.note-text { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+/* ── TAGS ── */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--green-line);
+  color: var(--text-mid);
+}
+.tag.hojokin { background: var(--green-light); border-color: var(--green-mid); color: var(--green-dark); font-weight: 700; }
+
+/* ── CAUTION ── */
+.caution {
+  background: var(--red-light);
+  border-left: 3px solid var(--red);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--red);
+  border-radius: 0 6px 6px 0;
+  margin-top: 12px;
+}
+
+/* ── SUMMARY TABLE ── */
+.summary-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.summary-table th {
+  background: var(--green-dark);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 12px;
+}
+.summary-table th:first-child { text-align: left; }
+.summary-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--green-line);
+  text-align: center;
+  vertical-align: middle;
+}
+.summary-table td:first-child { text-align: left; font-weight: 700; }
+.summary-table tr:nth-child(even) td { background: var(--green-light); }
+.summary-table .jibara { color: var(--orange); font-weight: 700; }
+
+/* ── DECISION GUIDE ── */
+.decision-tree {
+  background: var(--white);
+  border: 1px solid var(--green-line);
+  border-radius: 12px;
+  padding: 24px;
+}
+.dt-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #e8ede9; font-size: 14px; }
+.dt-row:last-child { border-bottom: none; }
+.dt-cond { flex: 0 0 260px; color: var(--text-muted); }
+.dt-arrow { flex-shrink: 0; color: var(--green-mid); font-weight: 700; }
+.dt-result { color: var(--green-dark); font-weight: 700; }
+
+@media (max-width: 640px) {
+  .pattern-head { grid-template-columns: auto 1fr; }
+  .complexity { display: none; }
+  .dt-row { flex-direction: column; gap: 4px; }
+  .dt-cond { flex: none; }
+  .summary-table { font-size: 11px; }
+  .summary-table th, .summary-table td { padding: 7px 8px; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="wrap">
+    <div>
+      <div class="badge-internal">社内資料・営業用</div>
+      <h1>導入パターン別<br>概算見積もり表</h1>
+      <p>宿泊税対応システム｜AI.LandBase　2026年6月版</p>
+    </div>
+  </div>
+</header>
+
+<div class="subsidy-bar">
+  補助金：補助率 <strong>100%</strong>・上限 <strong>200万円（税抜）</strong>／1施設　　お客様の手出しは<strong>消費税分（10%）のみ</strong>が基本
+</div>
+
+<!-- ════ PATTERNS ════ -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">Pattern Guide</div>
+    <h2>パターン別 費用・工数一覧</h2>
+
+    <!-- P1 -->
+    <div class="pattern-card">
+      <div class="pattern-head">
+        <div class="pattern-num">P1</div>
+        <div>
+          <div class="pattern-title">完全新規構築型</div>
+          <div class="pattern-target">対象：紙台帳・手書き領収書・デジタル機器ほぼなし</div>
+        </div>
+        <div class="complexity high">工数：大</div>
+      </div>
+      <div class="pattern-body">
+        <table class="cost-table">
+          <tr><th>項目</th><th>内容</th><th class="amount">概算（税抜）</th></tr>
+          <tr><td>タブレット</td><td>iPad等 1台</td><td class="amount">6〜10万円</td></tr>
+          <tr><td>レシートプリンター</td><td>領収書印字用</td><td class="amount">3〜8万円</td></tr>
+          <tr><td>システム新規構築</td><td>宿泊税計算・領収書発行・集計</td><td class="amount">60〜120万円</td></tr>
+          <tr><td>設定・導入・研修</td><td>現地設定＋操作説明</td><td class="amount">5〜15万円</td></tr>
+          <tr class="total-row"><td colspan="2">合計（税抜）</td><td class="amount">74〜153万円</td></tr>
+          <tr class="subsidy-row"><td colspan="2">補助金（最大200万円・税抜）</td><td class="amount">▲ 74〜153万円</td></tr>
+          <tr class="jibara-row"><td colspan="2">お客様の手出し（消費税10%）</td><td class="amount">7〜15万円</td></tr>
+        </table>
+        <div class="tags">
+          <span class="tag hojokin">補助金：新規構築＋ハードウェア</span>
+          <span class="tag">タブレット・プリンター込み</span>
+          <span class="tag">操作研修必須</span>
+        </div>
+        <p class="note-text">※ 部屋数・機能範囲により変動。ハードウェアも補助対象のため全額カバー可能なケースが多い。</p>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="pattern-card">
+      <div class="pattern-head">
+        <div class="pattern-num">P2</div>
+        <div>
+          <div class="pattern-title">スタンドアロン追加型</div>
+          <div class="pattern-target">対象：Excel・スマホ管理、既存の予約管理システムなし</div>
+        </div>
+        <div class="complexity mid">工数：中</div>
+      </div>
+      <div class="pattern-body">
+        <table class="cost-table">
+          <tr><th>項目</th><th>内容</th><th class="amount">概算（税抜）</th></tr>
+          <tr><td>システム新規構築</td><td>宿泊税計算・領収書発行・申告集計</td><td class="amount">40〜80万円</td></tr>
+          <tr><td>設定・導入</td><td>初期設定＋操作説明</td><td class="amount">3〜8万円</td></tr>
+          <tr class="total-row"><td colspan="2">合計（税抜）</td><td class="amount">43〜88万円</td></tr>
+          <tr class="subsidy-row"><td colspan="2">補助金</td><td class="amount">▲ 43〜88万円</td></tr>
+          <tr class="jibara-row"><td colspan="2">お客様の手出し（消費税10%）</td><td class="amount">4〜9万円</td></tr>
+        </table>
+        <div class="tags">
+          <span class="tag hojokin">補助金：新規構築</span>
+          <span class="tag">既存運用と並行可能</span>
+          <span class="tag">最もシンプル</span>
+        </div>
+        <p class="note-text">※ プリンターがない場合は P1 のハードウェア費用を加算。</p>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="pattern-card">
+      <div class="pattern-head">
+        <div class="pattern-num">P3</div>
+        <div>
+          <div class="pattern-title">既存PMS改修型</div>
+          <div class="pattern-target">対象：ねっぱん・TLリンカーン・Beds24 等を使用中</div>
+        </div>
+        <div class="complexity high">工数：大</div>
+      </div>
+      <div class="pattern-body">
+        <table class="cost-table">
+          <tr><th>項目</th><th>内容</th><th class="amount">概算（税抜）</th></tr>
+          <tr><td>PMS改修（ベンダー費）</td><td>宿泊税機能の追加・改修</td><td class="amount">50〜150万円</td></tr>
+          <tr><td>連携・テスト</td><td>動作確認・調整</td><td class="amount">10〜30万円</td></tr>
+          <tr><td>設定・導入</td><td>初期設定</td><td class="amount">5〜10万円</td></tr>
+          <tr class="total-row"><td colspan="2">合計（税抜）</td><td class="amount">65〜190万円</td></tr>
+          <tr class="subsidy-row"><td colspan="2">補助金（上限200万円）</td><td class="amount">▲ 65〜190万円</td></tr>
+          <tr class="jibara-row"><td colspan="2">お客様の手出し（消費税10%）</td><td class="amount">7〜19万円</td></tr>
+        </table>
+        <div class="tags">
+          <span class="tag hojokin">補助金：既存システム改修</span>
+          <span class="tag">PMSベンダーとの調整が必要</span>
+          <span class="tag">見積もり前にAPI確認必須</span>
+        </div>
+        <div class="caution">⚠ PMSベンダーによっては改修不可・高額になるケースあり。訪問前にシステム名と連携可否を確認すること。</div>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="pattern-card">
+      <div class="pattern-head">
+        <div class="pattern-num">P4</div>
+        <div>
+          <div class="pattern-title">POSレジ連携型</div>
+          <div class="pattern-target">対象：据置型POSレジ or Airレジ・スマレジ等を使用中</div>
+        </div>
+        <div class="complexity mid">工数：中</div>
+      </div>
+      <div class="pattern-body">
+        <table class="cost-table">
+          <tr><th>項目</th><th>内容</th><th class="amount">概算（税抜）</th></tr>
+          <tr><td>POSレジ改修・設定</td><td>宿泊税項目の追加・設定</td><td class="amount">10〜50万円</td></tr>
+          <tr><td>補完システム</td><td>レジ連携・集計・申告出力</td><td class="amount">20〜50万円</td></tr>
+          <tr><td>設定・導入</td><td>初期設定</td><td class="amount">3〜8万円</td></tr>
+          <tr class="total-row"><td colspan="2">合計（税抜）</td><td class="amount">33〜108万円</td></tr>
+          <tr class="subsidy-row"><td colspan="2">補助金</td><td class="amount">▲ 33〜108万円</td></tr>
+          <tr class="jibara-row"><td colspan="2">お客様の手出し（消費税10%）</td><td class="amount">3〜11万円</td></tr>
+        </table>
+        <div class="tags">
+          <span class="tag hojokin">補助金：既存改修 or ソフトウェア購入</span>
+          <span class="tag">レジ機種の確認が先決</span>
+        </div>
+        <div class="caution">⚠ 据置型レジは機種・年式によって宿泊税項目の追加が難しい場合あり。機種名を事前確認すること。</div>
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="pattern-card">
+      <div class="pattern-head">
+        <div class="pattern-num">P5</div>
+        <div>
+          <div class="pattern-title">OTA複数・チャネルマネージャー連携型</div>
+          <div class="pattern-target">対象：OTA3社以上＋チャネルマネージャー使用</div>
+        </div>
+        <div class="complexity high">工数：大</div>
+      </div>
+      <div class="pattern-body">
+        <table class="cost-table">
+          <tr><th>項目</th><th>内容</th><th class="amount">概算（税抜）</th></tr>
+          <tr><td>システム構築</td><td>OTA別現地払い/前払いの識別・自動計算</td><td class="amount">80〜160万円</td></tr>
+          <tr><td>OTA連携設定</td><td>各OTAのデータ取込・マッピング</td><td class="amount">10〜30万円</td></tr>
+          <tr><td>設定・導入</td><td>初期設定＋運用フロー整備</td><td class="amount">10〜20万円</td></tr>
+          <tr class="total-row"><td colspan="2">合計（税抜）</td><td class="amount">100〜210万円</td></tr>
+          <tr class="subsidy-row"><td colspan="2">補助金（上限200万円）</td><td class="amount">▲ 100〜200万円</td></tr>
+          <tr class="jibara-row"><td colspan="2">お客様の手出し（消費税10%＋超過分）</td><td class="amount">10〜31万円</td></tr>
+        </table>
+        <div class="tags">
+          <span class="tag hojokin">補助金：新規構築（複雑）</span>
+          <span class="tag">Agoda文字化け要確認</span>
+          <span class="tag">200万超の可能性あり</span>
+        </div>
+        <div class="caution">⚠ 200万円を超える場合は超過分が自己負担。OTA数・機能範囲によっては分割提案（最低限＋追加）も検討。</div>
+      </div>
+    </div>
+
+    <!-- P6 -->
+    <div class="pattern-card">
+      <div class="pattern-head">
+        <div class="pattern-num">P6</div>
+        <div>
+          <div class="pattern-title">会計ソフト連携型</div>
+          <div class="pattern-target">対象：弥生・freee・マネーフォワード等を使用中</div>
+        </div>
+        <div class="complexity low">工数：小〜中</div>
+      </div>
+      <div class="pattern-body">
+        <table class="cost-table">
+          <tr><th>項目</th><th>内容</th><th class="amount">概算（税抜）</th></tr>
+          <tr><td>連携開発・設定</td><td>宿泊税データを会計ソフトへ出力</td><td class="amount">15〜50万円</td></tr>
+          <tr><td>申告帳票設計</td><td>CSV・帳票フォーマット整備</td><td class="amount">5〜15万円</td></tr>
+          <tr><td>設定・導入</td><td>初期設定</td><td class="amount">3〜5万円</td></tr>
+          <tr class="total-row"><td colspan="2">合計（税抜）</td><td class="amount">23〜70万円</td></tr>
+          <tr class="subsidy-row"><td colspan="2">補助金</td><td class="amount">▲ 23〜70万円</td></tr>
+          <tr class="jibara-row"><td colspan="2">お客様の手出し（消費税10%）</td><td class="amount">2〜7万円</td></tr>
+        </table>
+        <div class="tags">
+          <span class="tag hojokin">補助金：既存改修 or ソフトウェア購入</span>
+          <span class="tag">最も手出しが少ない</span>
+          <span class="tag">他パターンと組み合わせ可</span>
+        </div>
+        <p class="note-text">※ 通常は P2〜P4 と組み合わせて提案。単体で採用されるケースは少ない。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════ SUMMARY ════ -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">Summary</div>
+    <h2>パターン比較一覧</h2>
+    <table class="summary-table">
+      <tr>
+        <th>パターン</th>
+        <th>概算（税抜）</th>
+        <th>手出し目安</th>
+        <th>工数</th>
+        <th>補助金区分</th>
+        <th>事前確認</th>
+      </tr>
+      <tr>
+        <td>P1 完全新規</td>
+        <td>74〜153万円</td>
+        <td class="jibara">7〜15万円</td>
+        <td>大</td>
+        <td>新規＋ハード</td>
+        <td>機器購入希望確認</td>
+      </tr>
+      <tr>
+        <td>P2 スタンドアロン</td>
+        <td>43〜88万円</td>
+        <td class="jibara">4〜9万円</td>
+        <td>中</td>
+        <td>新規構築</td>
+        <td>プリンター有無</td>
+      </tr>
+      <tr>
+        <td>P3 既存PMS改修</td>
+        <td>65〜190万円</td>
+        <td class="jibara">7〜19万円</td>
+        <td>大</td>
+        <td>既存改修</td>
+        <td>PMS名・API可否</td>
+      </tr>
+      <tr>
+        <td>P4 POSレジ連携</td>
+        <td>33〜108万円</td>
+        <td class="jibara">3〜11万円</td>
+        <td>中</td>
+        <td>既存改修</td>
+        <td>レジ機種・年式</td>
+      </tr>
+      <tr>
+        <td>P5 OTA複数連携</td>
+        <td>100〜210万円</td>
+        <td class="jibara">10〜31万円</td>
+        <td>大</td>
+        <td>新規構築（複雑）</td>
+        <td>OTA社数・Agoda有無</td>
+      </tr>
+      <tr>
+        <td>P6 会計ソフト連携</td>
+        <td>23〜70万円</td>
+        <td class="jibara">2〜7万円</td>
+        <td>小〜中</td>
+        <td>既存改修</td>
+        <td>ソフト名・API可否</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ════ DECISION GUIDE ════ -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">Decision Guide</div>
+    <h2>ヒアリング結果 → パターン判別フロー</h2>
+    <div class="decision-tree">
+      <div class="dt-row">
+        <div class="dt-cond">機器：なし or スマホのみ　台帳：紙</div>
+        <div class="dt-arrow">→</div>
+        <div class="dt-result">P1 完全新規構築型</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cond">機器：PC・スマホ　台帳：Excel</div>
+        <div class="dt-arrow">→</div>
+        <div class="dt-result">P2 スタンドアロン追加型</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cond">台帳：予約管理システム（PMS名あり）</div>
+        <div class="dt-arrow">→</div>
+        <div class="dt-result">P3 既存PMS改修型　※ API確認優先</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cond">機器：POSレジ（据置 or タブレット）</div>
+        <div class="dt-arrow">→</div>
+        <div class="dt-result">P4 POSレジ連携型　※ 機種確認優先</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cond">予約：OTA3社以上 or チャネルマネージャー</div>
+        <div class="dt-arrow">→</div>
+        <div class="dt-result">P5 を追加検討（他パターンと複合）</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cond">機器：会計ソフト（弥生・freee等）</div>
+        <div class="dt-arrow">→</div>
+        <div class="dt-result">P6 を追加（P2〜P4 との組み合わせ）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ NOTES ════ -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">Notes</div>
+    <h2>営業時の注意事項</h2>
+    <ul style="padding-left:1.4em;line-height:2.4;color:var(--text-mid);font-size:14px;">
+      <li>金額はあくまで概算。正式見積もりは訪問後にヒアリング内容をもとに作成すること</li>
+      <li>補助金は<strong>交付決定後に発注</strong>しないと対象外になる。お客様に必ず周知すること</li>
+      <li>立替期間は最大10ヶ月。資金繰りが心配なお客様にはつなぎ融資を案内すること</li>
+      <li>P3・P4 は訪問前にシステム名・機種を確認し、連携可否を調査してから訪問すること</li>
+      <li>補助金申請期限：<strong>2026年6月30日</strong>　事業完了期限：<strong>2027年1月31日</strong></li>
+    </ul>
+  </div>
+</section>
+
+<footer style="background:var(--green-dark);color:rgba(255,255,255,0.6);text-align:center;padding:24px;font-size:12px;">
+  AI.LandBase 社内資料 ｜ 無断転載禁止 ｜ 2026年6月版
+</footer>
+
+</body>
+</html>
