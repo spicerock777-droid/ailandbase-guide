@@ -31,42 +31,10 @@
     padding: 24px;
     min-height: 100vh;
   }
+  /* このビラはA4印刷用です。スマートフォンでも縮小表示されます。 */
   @media(max-width:600px){
-    body { padding: 0; background: #fff; }
-    .page { width: 100%; min-height: auto; box-shadow: none; }
-
-    /* モバイル用 文字サイズ大幅拡大 */
-    .logo { font-size: 16pt; }
-    .header-sub { font-size: 11pt; }
-    .hero-eyebrow { font-size: 11pt; }
-    .hero-catch { font-size: clamp(22pt, 8vw, 28pt); }
-    .hero-sub { font-size: 12pt; line-height: 2; }
-    .sec-label { font-size: 11pt; }
-    .flow-intro { font-size: 12pt; }
-    .flow-step { font-size: 11pt; padding: 12px 6px; }
-    .legend-item { font-size: 11pt; }
-    .feature-title { font-size: 13pt; }
-    .feature-desc { font-size: 11pt; }
-    .sub-lbl { font-size: 11pt; }
-    .sub-val { font-size: 16pt; }
-    .sub-val small { font-size: 11pt; }
-    .subsidy-name { font-size: 11pt; }
-    .subsidy-detail { font-size: 11pt; }
-    .cta-eyebrow { font-size: 11pt; }
-    .cta-tel { font-size: 22pt; }
-    .cta-note { font-size: 11pt; }
-    .cta-line-label { font-size: 11pt; }
-    .footer-logo { font-size: 14pt; }
-    .footer-sub, .footer-right { font-size: 11pt; }
-
-    /* モバイル用レイアウト調整 */
-    .features { grid-template-columns: 1fr; }
-    .flow-row { flex-direction: column; }
-    .flow-arrow { transform: rotate(90deg); align-self: center; }
-    .fact-row { flex-direction: column; gap: 14px; }
-    .hero { padding: 24px 20px 20px; }
-    .content { padding: 16px 20px 0; }
-    .footer { padding: 14px 20px 18px; flex-direction: column; gap: 10px; }
+    body { padding: 0; background: #fff; overflow-x: auto; }
+    .page { width: 210mm; box-shadow: none; }
   }
 
   .page {

@@ -420,6 +420,61 @@ h2 {
 }
 .contact-office strong { display: block; color: var(--text-mid); font-size: 9.5pt; margin-bottom: 4px; }
 
+/* ════ MOBILE POLISH ════ */
+@media(max-width:600px){
+  body { line-height: 1.9; }
+
+  section { padding: 60px 0; }
+  .wrap { padding: 0 22px; }
+  section:last-of-type { padding-bottom: 96px; }
+
+  .sec-eyebrow { font-size: 8pt; margin-bottom: 20px; }
+  h2 { font-size: clamp(17pt, 6vw, 22pt); line-height: 1.5; margin-bottom: 16px; }
+  .lead { font-size: 10.5pt; line-height: 2.1; margin-bottom: 36px; }
+
+  /* ヒーロー */
+  #hero { padding-top: 110px; padding-bottom: 60px; }
+  .hero-title { font-size: clamp(20pt, 7.5vw, 26pt); line-height: 1.45; margin-bottom: 24px; }
+  .hero-sub { font-size: 11pt; line-height: 2.1; padding-left: 16px; margin-bottom: 32px; }
+  .subsidy-summary { gap: 18px; padding: 18px; flex-wrap: wrap; }
+  .ss-val { font-size: 14pt; }
+
+  /* 申請フロー */
+  .flow-step-title { font-size: 11.5pt; }
+  .flow-step-desc { font-size: 10.5pt; line-height: 2.0; }
+  .flow-step-note { font-size: 10pt; line-height: 1.85; padding: 12px 14px; }
+  .role-badge { font-size: 8pt; padding: 3px 10px; }
+  .flow-step-body { padding-bottom: 26px; }
+
+  /* 書類 */
+  .doc-phase-ttl { font-size: 10.5pt; padding-bottom: 10px; margin-bottom: 14px; }
+  .doc-name { font-size: 10.5pt; margin-bottom: 4px; }
+  .doc-desc { font-size: 10pt; line-height: 1.85; }
+  .doc-item { padding: 14px 16px; }
+  .doc-support-note { font-size: 10pt; line-height: 1.9; padding: 14px 16px; }
+
+  /* 注意点 */
+  .caution { padding: 18px 16px; }
+  .caution-title { font-size: 10.5pt; margin-bottom: 6px; }
+  .caution-desc { font-size: 10pt; line-height: 1.9; }
+
+  /* サポート内容 */
+  .support-grid { gap: 10px; }
+  .support-card { padding: 18px; }
+  .support-ttl { font-size: 10.5pt; margin-bottom: 6px; }
+  .support-desc { font-size: 10pt; line-height: 1.85; }
+
+  /* お問い合わせ */
+  .contact-box { flex-direction: column; gap: 20px; padding: 22px 20px; }
+  .contact-tel { font-size: 22pt; }
+  .contact-note { font-size: 10.5pt; line-height: 2.0; }
+  .contact-office { font-size: 10pt; line-height: 2.0; padding: 16px; }
+
+  /* ボトムナビ */
+  #mobile-nav { padding: 14px 0 max(16px, env(safe-area-inset-bottom)); border-top: 1.5px solid var(--green-line); }
+  #mobile-nav a { font-size: 9.5pt; gap: 4px; padding: 0 8px; }
+}
+
 /* ════ FOOTER ════ */
 footer {
   background: var(--green-dark);
