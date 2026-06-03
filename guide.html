@@ -1092,6 +1092,71 @@ footer {
           </div>
         </div>
 
+        <!-- 見積もりのための確認事項 -->
+        <div class="form-section">
+          <div class="form-section-ttl">お見積もりのための確認事項（任意）</div>
+          <div class="form-section-sub">ご訪問前に概算のご提案を準備するために、もう少しだけ教えてください。</div>
+
+          <div class="fg">
+            <label class="fl">インボイス（適格請求書）の登録状況</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="invoice" value="yes">登録済み</label>
+              <label class="ck-label"><input type="radio" name="invoice" value="no">登録していない</label>
+              <label class="ck-label"><input type="radio" name="invoice" value="unknown">わからない</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">宿泊税への現在の対応状況</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="tax_status" value="nothing">まだ何もしていない</label>
+              <label class="ck-label"><input type="radio" name="tax_status" value="manual">自分で計算・手対応している</label>
+              <label class="ck-label"><input type="radio" name="tax_status" value="searching">システムを探している</label>
+              <label class="ck-label"><input type="radio" name="tax_status" value="other">その他</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">月あたりのおおよその宿泊者数</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="guests_per_month" value="under30">30人以下</label>
+              <label class="ck-label"><input type="radio" name="guests_per_month" value="30to100">30〜100人</label>
+              <label class="ck-label"><input type="radio" name="guests_per_month" value="100to300">100〜300人</label>
+              <label class="ck-label"><input type="radio" name="guests_per_month" value="over300">300人以上</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">OTA経由で現地払いするお客様の割合</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="ota_onsite" value="almost_none">ほとんどいない</label>
+              <label class="ck-label"><input type="radio" name="ota_onsite" value="half">半分程度</label>
+              <label class="ck-label"><input type="radio" name="ota_onsite" value="mostly">ほとんどOTA経由</label>
+              <label class="ck-label"><input type="radio" name="ota_onsite" value="unknown">わからない</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">希望する機能の範囲</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="feature_scope" value="minimum">宿泊税の計算・表示だけでよい</label>
+              <label class="ck-label"><input type="radio" name="feature_scope" value="receipt">領収書・請求書への税額記載も必要</label>
+              <label class="ck-label"><input type="radio" name="feature_scope" value="report">申告用の集計帳票も出したい</label>
+              <label class="ck-label"><input type="radio" name="feature_scope" value="full">できるだけ自動化・一括管理したい</label>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">導入を決める際の判断者</label>
+            <div class="check-grid">
+              <label class="ck-label"><input type="radio" name="decision_maker" value="self">自分ひとりで決められる</label>
+              <label class="ck-label"><input type="radio" name="decision_maker" value="family">家族・パートナーと相談して決める</label>
+              <label class="ck-label"><input type="radio" name="decision_maker" value="owner">オーナー・本社の承認が必要</label>
+            </div>
+          </div>
+
+        </div>
+
         <div class="fg">
           <label class="fl" for="f-msg">ご相談内容・気になっていること</label>
           <textarea class="ft" id="f-msg" placeholder="現在の課題や、気になっていることなど、自由にお書きください。"></textarea>
