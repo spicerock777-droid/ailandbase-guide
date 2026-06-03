@@ -54,9 +54,9 @@
     justify-content: space-between;
     align-items: center;
   }
-  .logo { font-size: 12pt; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
-  .logo span { color: rgba(255,255,255,0.5); font-weight: 300; }
-  .header-sub { font-size: 8pt; color: rgba(255,255,255,0.5); letter-spacing: 0.12em; }
+  .logo { font-size: 14pt; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
+  .logo span { color: rgba(255,255,255,0.6); font-weight: 400; }
+  .header-sub { font-size: 9pt; color: rgba(255,255,255,0.65); letter-spacing: 0.12em; }
 
   /* ── ヒーロー ── */
   .hero {
@@ -64,15 +64,15 @@
     border-bottom: 1px solid var(--green-line);
   }
   .hero-eyebrow {
-    font-size: 8pt;
-    color: var(--text-muted);
-    letter-spacing: 0.22em;
-    font-weight: 500;
+    font-size: 10pt;
+    color: var(--text-mid);
+    letter-spacing: 0.18em;
+    font-weight: 700;
     margin-bottom: 16px;
   }
   .hero-catch {
     font-family: 'Noto Serif JP', serif;
-    font-size: 24pt;
+    font-size: 28pt;
     font-weight: 700;
     color: var(--text-dark);
     line-height: 1.6;
@@ -80,12 +80,12 @@
     margin-bottom: 20px;
   }
   .hero-sub {
-    font-size: 9pt;
-    color: var(--text-mid);
+    font-size: 11pt;
+    color: var(--text-dark);
     line-height: 2.1;
-    font-weight: 300;
+    font-weight: 400;
     padding-left: 14px;
-    border-left: 2px solid var(--green-mid);
+    border-left: 3px solid var(--green-mid);
   }
 
   /* ── コンテンツ ── */
@@ -98,10 +98,10 @@
   }
 
   .sec-label {
-    font-size: 8pt;
+    font-size: 10pt;
     font-weight: 700;
     color: var(--green-mid);
-    letter-spacing: 0.22em;
+    letter-spacing: 0.18em;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -116,9 +116,10 @@
     padding: 22px 20px;
   }
   .flow-intro {
-    font-size: 9pt;
-    color: var(--text-mid);
+    font-size: 10.5pt;
+    color: var(--text-dark);
     line-height: 2.0;
+    font-weight: 400;
     margin-bottom: 20px;
   }
   .flow-row {
@@ -131,9 +132,10 @@
     padding: 13px 6px;
     background: rgba(255,255,255,0.7);
     border: 1px solid var(--green-line);
-    font-size: 8.5pt;
+    font-size: 10pt;
     color: var(--text-dark);
-    line-height: 1.55;
+    font-weight: 500;
+    line-height: 1.6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -161,8 +163,8 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 8pt;
-    color: var(--text-muted);
+    font-size: 9.5pt;
+    color: var(--text-mid);
   }
   .legend-box {
     width: 13px;
@@ -185,15 +187,15 @@
     background: rgba(255,255,255,0.6);
   }
   .feature-title {
-    font-size: 9.5pt;
+    font-size: 11.5pt;
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 8px;
   }
   .feature-desc {
-    font-size: 8.5pt;
-    color: var(--text-muted);
-    line-height: 1.85;
+    font-size: 10pt;
+    color: var(--text-mid);
+    line-height: 1.9;
   }
 
   /* ── 補助金 ── */
@@ -206,12 +208,12 @@
     align-items: flex-start;
   }
   .subsidy-nums { display: flex; gap: 28px; flex-shrink: 0; }
-  .sub-lbl { font-size: 8pt; color: var(--text-muted); letter-spacing: 0.14em; margin-bottom: 2px; }
-  .sub-val { font-size: 13pt; font-weight: 700; color: var(--green-dark); line-height: 1.2; }
-  .sub-val small { font-size: 8pt; font-weight: 400; color: var(--text-mid); }
+  .sub-lbl { font-size: 9.5pt; font-weight: 500; color: var(--text-mid); letter-spacing: 0.1em; margin-bottom: 3px; }
+  .sub-val { font-size: 16pt; font-weight: 700; color: var(--green-dark); line-height: 1.2; }
+  .sub-val small { font-size: 9.5pt; font-weight: 500; color: var(--text-mid); }
   .subsidy-divider { width: 1px; background: var(--green-line); align-self: stretch; flex-shrink: 0; }
-  .subsidy-name { font-size: 8.5pt; font-weight: 700; color: var(--green-dark); margin-bottom: 5px; }
-  .subsidy-detail { font-size: 8pt; color: var(--text-muted); line-height: 1.9; }
+  .subsidy-name { font-size: 10.5pt; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; }
+  .subsidy-detail { font-size: 9.5pt; color: var(--text-mid); line-height: 2.0; }
 
   /* ── CTA ── */
   .cta {
@@ -223,18 +225,18 @@
     gap: 20px;
   }
   .cta-left { flex: 1; }
-  .cta-eyebrow { font-size: 8pt; color: var(--text-muted); letter-spacing: 0.14em; margin-bottom: 10px; }
-  .cta-tel { font-size: 18pt; font-weight: 700; color: var(--text-dark); letter-spacing: 0.06em; line-height: 1; margin-bottom: 8px; }
-  .cta-note { font-size: 8pt; color: var(--text-muted); line-height: 2.0; }
-  .cta-divider { width: 1px; height: 50px; background: var(--brown-line); flex-shrink: 0; }
+  .cta-eyebrow { font-size: 9.5pt; font-weight: 700; color: var(--text-mid); letter-spacing: 0.1em; margin-bottom: 10px; }
+  .cta-tel { font-size: 14pt; font-weight: 500; color: var(--text-dark); letter-spacing: 0.06em; line-height: 1; margin-bottom: 8px; }
+  .cta-note { font-size: 10pt; color: var(--text-mid); line-height: 2.0; }
+  .cta-divider { width: 1px; height: 56px; background: var(--brown-line); flex-shrink: 0; }
   .cta-right { text-align: center; flex-shrink: 0; }
-  .cta-line-label { font-size: 8pt; color: var(--brown); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .cta-line-label { font-size: 9.5pt; color: var(--brown); font-weight: 700; letter-spacing: 0.08em; margin-bottom: 6px; }
   .cta-qr {
-    width: 54px; height: 54px;
+    width: 90px; height: 90px;
     border: 1.5px solid var(--brown-line);
     background: white;
     display: flex; align-items: center; justify-content: center;
-    font-size: 8pt; color: var(--text-muted); font-weight: 700; line-height: 1.5;
+    font-size: 9pt; color: var(--text-muted); font-weight: 700; line-height: 1.5;
     margin: 0 auto;
   }
 
@@ -247,9 +249,9 @@
     border-top: 1.5px solid var(--green-dark);
     margin-top: 24px;
   }
-  .footer-logo { font-size: 10pt; font-weight: 700; color: var(--green-dark); }
-  .footer-sub { font-size: 8pt; color: var(--text-muted); margin-top: 2px; }
-  .footer-right { font-size: 8pt; color: var(--text-muted); text-align: right; line-height: 1.9; }
+  .footer-logo { font-size: 13pt; font-weight: 700; color: var(--green-dark); }
+  .footer-sub { font-size: 9.5pt; color: var(--text-mid); margin-top: 3px; }
+  .footer-right { font-size: 9.5pt; color: var(--text-mid); text-align: right; line-height: 2.0; font-weight: 500; }
 
   @media print {
     body { background: white; padding: 0; }
