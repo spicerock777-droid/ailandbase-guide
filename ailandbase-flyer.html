@@ -62,12 +62,7 @@
   .hero {
     padding: 34px 32px 28px;
     border-bottom: 1px solid var(--green-line);
-    display: flex;
-    gap: 24px;
-    align-items: center;
   }
-  .hero-left { flex: 1; min-width: 0; }
-  .hero-visual { flex-shrink: 0; width: 200px; }
   .hero-eyebrow {
     font-size: 10pt;
     color: var(--text-mid);
@@ -275,80 +270,11 @@
 
   <!-- ヒーロー -->
   <div class="hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow">沖縄県宿泊税　対応のご案内</div>
-      <div class="hero-catch">宿泊税対応を、<br>わかりやすく。</div>
-      <div class="hero-sub">
-        計算・集計・申告データ作成・領収書発行を、<br>
-        ひとつの仕組みでサポートします。
-      </div>
-    </div>
-    <div class="hero-visual">
-      <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" width="100%" style="display:block">
-        <defs>
-          <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-            <path d="M0 0 L8 3 L0 6 Z" fill="#b8d4c2"/>
-          </marker>
-        </defs>
-
-        <!-- 背景円 -->
-        <circle cx="100" cy="100" r="88" fill="#eaf3ed" opacity="0.45"/>
-
-        <!-- 左：小宿 -->
-        <!-- 屋根 -->
-        <polygon points="35,78 70,50 105,78" fill="#1f4a33"/>
-        <!-- 煙突 -->
-        <rect x="80" y="57" width="8" height="18" fill="#1f4a33"/>
-        <!-- 壁 -->
-        <rect x="40" y="78" width="60" height="52" fill="#2d6a4f"/>
-        <!-- 窓 -->
-        <rect x="47" y="86" width="16" height="14" fill="#fdf8ef" rx="1"/>
-        <rect x="72" y="86" width="16" height="14" fill="#fdf8ef" rx="1"/>
-        <!-- ドア -->
-        <rect x="58" y="104" width="14" height="26" fill="#b8d4c2" rx="1"/>
-        <!-- 地面 -->
-        <line x1="30" y1="130" x2="110" y2="130" stroke="#b8d4c2" stroke-width="1.2"/>
-
-        <!-- ラベル -->
-        <text x="70" y="143" text-anchor="middle" font-size="8" fill="#3d5a47" font-family="'Noto Sans JP',sans-serif" font-weight="500">お宿</text>
-
-        <!-- 矢印 -->
-        <line x1="112" y1="100" x2="130" y2="100" stroke="#b8d4c2" stroke-width="2" marker-end="url(#arr)"/>
-        <text x="121" y="95" text-anchor="middle" font-size="6.5" fill="#6a7a6e" font-family="'Noto Sans JP',sans-serif">自動で</text>
-
-        <!-- 右：書類チェックリスト -->
-        <rect x="133" y="65" width="56" height="75" fill="white" rx="3" stroke="#b8d4c2" stroke-width="1.5"/>
-        <!-- ヘッダー帯 -->
-        <rect x="133" y="65" width="56" height="11" fill="#eaf3ed" rx="3"/>
-        <rect x="133" y="72" width="56" height="4" fill="#eaf3ed"/>
-        <text x="161" y="74" text-anchor="middle" font-size="6" fill="#2d6a4f" font-family="'Noto Sans JP',sans-serif" font-weight="700">宿泊税書類</text>
-
-        <!-- 行1: 計算 -->
-        <circle cx="145" cy="85" r="5.5" fill="#eaf3ed" stroke="#2d6a4f" stroke-width="1.3"/>
-        <path d="M142.2 85 L144.3 87.8 L148.2 82.5" stroke="#2d6a4f" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="154" y="88" font-size="7" fill="#1f4a33" font-family="'Noto Sans JP',sans-serif" font-weight="500">計算</text>
-
-        <!-- 行2: 集計 -->
-        <circle cx="145" cy="98" r="5.5" fill="#eaf3ed" stroke="#2d6a4f" stroke-width="1.3"/>
-        <path d="M142.2 98 L144.3 100.8 L148.2 95.5" stroke="#2d6a4f" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="154" y="101" font-size="7" fill="#1f4a33" font-family="'Noto Sans JP',sans-serif" font-weight="500">集計</text>
-
-        <!-- 行3: 申告データ -->
-        <circle cx="145" cy="111" r="5.5" fill="#eaf3ed" stroke="#2d6a4f" stroke-width="1.3"/>
-        <path d="M142.2 111 L144.3 113.8 L148.2 108.5" stroke="#2d6a4f" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="154" y="114" font-size="7" fill="#1f4a33" font-family="'Noto Sans JP',sans-serif" font-weight="500">申告データ</text>
-
-        <!-- 行4: 領収書 -->
-        <circle cx="145" cy="124" r="5.5" fill="#eaf3ed" stroke="#2d6a4f" stroke-width="1.3"/>
-        <path d="M142.2 124 L144.3 126.8 L148.2 121.5" stroke="#2d6a4f" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="154" y="127" font-size="7" fill="#1f4a33" font-family="'Noto Sans JP',sans-serif" font-weight="500">領収書発行</text>
-
-        <!-- ラベル -->
-        <text x="161" y="152" text-anchor="middle" font-size="7.5" fill="#3d5a47" font-family="'Noto Sans JP',sans-serif" font-weight="500">自動処理</text>
-
-        <!-- 下部キャプション -->
-        <text x="100" y="185" text-anchor="middle" font-size="7.5" fill="#6a7a6e" font-family="'Noto Sans JP',sans-serif">サポートの流れ</text>
-      </svg>
+    <div class="hero-eyebrow">沖縄県宿泊税　対応のご案内</div>
+    <div class="hero-catch">宿泊税対応を、<br>わかりやすく。</div>
+    <div class="hero-sub">
+      計算・集計・申告データ作成・領収書発行を、<br>
+      ひとつの仕組みでサポートします。
     </div>
   </div>
 
