@@ -276,6 +276,90 @@ h2 {
 .feat-title { font-size: 11.5pt; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; }
 .feat-desc  { font-size: 11.5pt; color: var(--text-mid); line-height: 1.8; }
 
+/* ════ PRODUCT CATALOG ════ */
+.prod-lead { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; text-align: center; }
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+.prod-card {
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(31,74,51,.08);
+  border: 1px solid var(--green-line);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
+}
+.prod-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(31,74,51,.15);
+}
+.prod-top {
+  padding: 20px 18px 14px;
+  flex: 1;
+}
+.prod-badge-row { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.prod-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  padding: 3px 9px; border-radius: 20px;
+}
+.prod-badge.must    { background: #fff3e0; color: #e65100; }
+.prod-badge.popular { background: #fce4ec; color: #c62828; }
+.prod-badge.option  { background: var(--green-light); color: var(--green-dark); }
+.prod-badge.subsidy { background: var(--green-dark); color: #fff; }
+.prod-icon-wrap {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin-bottom: 12px;
+}
+.prod-icon-wrap.green  { background: var(--green-light); }
+.prod-icon-wrap.brown  { background: var(--brown-light); }
+.prod-icon-wrap.blue   { background: #e8f4fd; }
+.prod-icon-wrap.purple { background: #f3e8fd; }
+.prod-name {
+  font-size: 15px; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 6px; line-height: 1.4;
+}
+.prod-desc { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+.prod-footer {
+  padding: 12px 18px;
+  border-top: 1px solid var(--green-line);
+  background: var(--green-light);
+}
+.prod-subsidy-note { font-size: 11px; color: var(--green-mid); margin-bottom: 8px; }
+.prod-cta {
+  display: block; width: 100%;
+  background: var(--green-dark); color: #fff;
+  border: none; border-radius: 8px;
+  padding: 10px; font-size: 13px; font-weight: 700;
+  cursor: pointer; text-align: center;
+  transition: background .15s, transform .1s;
+}
+.prod-cta:hover { background: var(--green-mid); transform: scale(1.02); }
+.prod-cta.added {
+  background: var(--white);
+  color: var(--green-dark);
+  border: 2px solid var(--green-dark);
+}
+.prod-cat-ttl {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px; color: var(--green-dark);
+  margin: 32px 0 14px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--green-line);
+}
+.prod-cat-ttl:first-child { margin-top: 0; }
+@media(max-width:600px){
+  .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .prod-top { padding: 14px 12px 10px; }
+  .prod-icon-wrap { width: 40px; height: 40px; font-size: 20px; border-radius: 10px; }
+  .prod-name { font-size: 13px; }
+  .prod-desc { font-size: 11px; }
+  .prod-footer { padding: 10px 12px; }
+  .prod-cta { font-size: 12px; padding: 8px; }
+}
+
 /* ════ SCOPE (できないこと) ════ */
 .scope-note {
   background: var(--cream);
@@ -868,46 +952,165 @@ footer {
   <div class="wrap">
     <div class="sec-eyebrow">できること</div>
     <h2>このシステムでできること</h2>
-    <p class="lead">
-      宿泊税の導入後、毎月発生する定型業務を整理します。<br>
-      計算・集計・申告データ作成・領収書発行はシステムがサポートします。
-    </p>
+    <p class="lead">機能はすべて<strong>補助金の対象</strong>です。必要なものを選んで、そのままお問い合わせフォームのカートへ。</p>
 
-    <div class="flow-wrap">
-      <div class="flow-node">宿泊実績<br>の確認<small>（台帳・予約記録などから）</small></div>
-      <div class="flow-arr">›</div>
-      <div class="flow-node sys">宿泊税<br>計算</div>
-      <div class="flow-arr">›</div>
-      <div class="flow-node sys">月次<br>集計</div>
-      <div class="flow-arr">›</div>
-      <div class="flow-node sys">申告データ<br>作成</div>
-      <div class="flow-arr">›</div>
-      <div class="flow-node sys">領収書<br>発行</div>
-      <div class="flow-arr">›</div>
-      <div class="flow-node">県への<br>申告・納付</div>
-    </div>
-    <div class="flow-legend" style="margin-bottom:32px">
-      <div class="legend-item"><div class="legend-box normal"></div>ご自身での対応</div>
-      <div class="legend-item"><div class="legend-box sys"></div>システムがサポート</div>
+    <div class="prod-cat-ttl">基本機能 — どのお宿にも必要なもの</div>
+    <div class="prod-grid">
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge must">必須</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap green">🧮</div>
+          <div class="prod-name">宿泊税の自動計算</div>
+          <div class="prod-desc">税率2%・上限2,000円・1,000円未満切り捨てに自動対応。お客様ごとに毎回手計算する必要がなくなります。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 補助金で実質無料で導入できます</div>
+          <button class="prod-cta" data-want="tax_calc">🛒 カートに入れる</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge must">必須</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap green">📊</div>
+          <div class="prod-name">月次集計・申告データ出力</div>
+          <div class="prod-desc">毎月の宿泊者数と税額を自動集計。申告書類に転記するだけのデータをボタン一つで出力します。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 補助金で実質無料で導入できます</div>
+          <button class="prod-cta" data-want="monthly_report">🛒 カートに入れる</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge popular">人気</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap brown">🧾</div>
+          <div class="prod-name">領収書・適格請求書への税額記載</div>
+          <div class="prod-desc">宿泊税額を分けて自動印字。インボイス対応の適格請求書も発行できます。プリンターも補助金で導入可能。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ プリンター購入も補助金対象です</div>
+          <button class="prod-cta" data-want="receipt">🛒 カートに入れる</button>
+        </div>
+      </div>
+
     </div>
 
-    <div class="feat-grid">
-      <div class="feat-card">
-        <div class="feat-title">宿泊税額の自動計算</div>
-        <div class="feat-desc">税率2%・上限2,000円・課税標準の1,000円未満切り捨てに対応。毎回の手計算が不要になります。</div>
+    <div class="prod-cat-ttl">便利機能 — 使い方に合わせて追加できるもの</div>
+    <div class="prod-grid">
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge option">オプション</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap blue">🖥️</div>
+          <div class="prod-name">チェックイン画面での税額確認</div>
+          <div class="prod-desc">フロントでお客様にすぐ税額を提示できます。スムーズな説明・精算をサポートします。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 補助金で実質無料で導入できます</div>
+          <button class="prod-cta" data-want="checkin_display">🛒 カートに入れる</button>
+        </div>
       </div>
-      <div class="feat-card">
-        <div class="feat-title">月次集計レポート</div>
-        <div class="feat-desc">毎月の宿泊者数と宿泊税額を自動で集計します。申告前の確認作業をスムーズに行えます。</div>
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge option">オプション</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap green">📱</div>
+          <div class="prod-name">スマホ・タブレット対応</div>
+          <div class="prod-desc">フロントだけでなく、スマホからも操作・確認できます。外出先でも対応できる柔軟な設計。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ タブレット購入も補助金対象です</div>
+          <button class="prod-cta" data-want="smartphone">🛒 カートに入れる</button>
+        </div>
       </div>
-      <div class="feat-card">
-        <div class="feat-title">申告データの出力</div>
-        <div class="feat-desc">申告に必要なデータをまとめて出力します。転記や集計の手間を減らします。</div>
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge option">オプション</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap purple">👥</div>
+          <div class="prod-name">複数スタッフでの共有管理</div>
+          <div class="prod-desc">スタッフごとにアカウントを分けて管理できます。誰がいつ操作したか履歴も確認可能。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 補助金で実質無料で導入できます</div>
+          <button class="prod-cta" data-want="multi_staff">🛒 カートに入れる</button>
+        </div>
       </div>
-      <div class="feat-card">
-        <div class="feat-title">領収書への税額記載</div>
-        <div class="feat-desc">領収書・請求書に宿泊税額を自動で印字します。印字用のプリンターも補助金で導入できます。</div>
+
+    </div>
+
+    <div class="prod-cat-ttl">連携機能 — 今あるシステムとつなぐもの</div>
+    <div class="prod-grid">
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge option">オプション</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap blue">🔗</div>
+          <div class="prod-name">OTAデータの自動取込</div>
+          <div class="prod-desc">じゃらん・楽天・Airbnb等の予約データを自動で取り込み、手入力なしで宿泊税を計算します。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 補助金で実質無料で導入できます</div>
+          <button class="prod-cta" data-want="ota_import">🛒 カートに入れる</button>
+        </div>
       </div>
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge option">オプション</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap brown">📒</div>
+          <div class="prod-name">会計ソフト連携</div>
+          <div class="prod-desc">弥生・freee・マネーフォワードに宿泊税データを自動連携。帳簿への転記作業がなくなります。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 補助金で実質無料で導入できます</div>
+          <button class="prod-cta" data-want="accounting">🛒 カートに入れる</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-top">
+          <div class="prod-badge-row">
+            <span class="prod-badge option">オプション</span>
+            <span class="prod-badge subsidy">補助金対象</span>
+          </div>
+          <div class="prod-icon-wrap purple">⚙️</div>
+          <div class="prod-name">今のPMSへの組み込み</div>
+          <div class="prod-desc">ねっぱん・TLリンカーン等、今使っている予約管理システムに宿泊税機能を追加します。</div>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-subsidy-note">✓ 既存システム改修も補助金対象です</div>
+          <button class="prod-cta" data-want="pms_connect">🛒 カートに入れる</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1666,6 +1869,41 @@ async function sendEmail(name, facility, tel, email, patterns, est, fd) {
     });
   } catch(_) {}
 }
+
+// ── 商品カード → フォームカート連動 ──
+(function(){
+  function syncProdButtons() {
+    document.querySelectorAll('.prod-cta[data-want]').forEach(btn => {
+      const cb = document.querySelector(`input[name="want"][value="${btn.dataset.want}"]`);
+      if (!cb) return;
+      if (cb.checked) {
+        btn.textContent = '✓ カートに入っています';
+        btn.classList.add('added');
+      } else {
+        btn.textContent = '🛒 カートに入れる';
+        btn.classList.remove('added');
+      }
+    });
+  }
+
+  document.querySelectorAll('.prod-cta[data-want]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cb = document.querySelector(`input[name="want"][value="${btn.dataset.want}"]`);
+      if (!cb) return;
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event('change'));
+      syncProdButtons();
+      if (cb.checked) {
+        document.getElementById('contact').scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+  });
+
+  // カート側の変更でも商品ボタンを同期
+  document.querySelectorAll('input[name="want"]').forEach(cb => {
+    cb.addEventListener('change', syncProdButtons);
+  });
+})();
 
 // ── カート ──
 (function(){
