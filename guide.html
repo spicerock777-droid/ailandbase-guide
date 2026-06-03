@@ -637,6 +637,125 @@ details[open] summary {
 .result-next-ttl { font-size: 12px; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; }
 .result-next p { font-size: 14px; color: var(--text-mid); }
 
+/* ════ FEATURE CARDS ════ */
+.feat-cat-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .08em;
+  color: var(--green-mid); margin: 18px 0 8px;
+  text-transform: uppercase;
+}
+.feat-cat-label:first-child { margin-top: 4px; }
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+.feat-card { display: block; cursor: pointer; }
+.feat-card input[type="checkbox"] { display: none; }
+.feat-card-inner {
+  border: 2px solid var(--green-line);
+  border-radius: 10px;
+  padding: 14px 12px 12px;
+  background: var(--white);
+  transition: all .15s ease;
+  height: 100%;
+  position: relative;
+}
+.feat-card-inner::after {
+  content: '';
+  position: absolute; top: 8px; right: 8px;
+  width: 18px; height: 18px;
+  border: 2px solid var(--green-line);
+  border-radius: 4px;
+  background: #fff;
+  transition: all .15s ease;
+}
+.feat-card:hover .feat-card-inner {
+  border-color: var(--green-mid);
+  box-shadow: 0 4px 12px rgba(31,74,51,.10);
+  transform: translateY(-2px);
+}
+.feat-card input:checked + .feat-card-inner {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  box-shadow: 0 4px 16px rgba(31,74,51,.25);
+  transform: translateY(-2px);
+}
+.feat-card input:checked + .feat-card-inner::after {
+  background: #fff;
+  border-color: #fff;
+  content: '✓';
+  font-size: 11px; font-weight: 700;
+  color: var(--green-dark);
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+.feat-icon { font-size: 22px; margin-bottom: 8px; line-height: 1; }
+.feat-name {
+  font-size: 13px; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 4px;
+  transition: color .15s;
+}
+.feat-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; transition: color .15s; }
+.feat-card input:checked + .feat-card-inner .feat-name,
+.feat-card input:checked + .feat-card-inner .feat-desc { color: rgba(255,255,255,.9); }
+.feat-card input:checked + .feat-card-inner .feat-icon { filter: brightness(10); }
+@media(max-width:600px){
+  .feat-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .feat-card-inner { padding: 12px 10px 10px; }
+  .feat-name { font-size: 12px; }
+  .feat-desc { font-size: 10px; }
+}
+
+/* ════ CART ════ */
+.cart-wrap {
+  margin-top: 20px;
+  border: 2px solid var(--green-dark);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all .3s ease;
+}
+.cart-head {
+  background: var(--green-dark); color: #fff;
+  padding: 12px 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.cart-head-icon { font-size: 18px; }
+.cart-head-title { font-weight: 700; font-size: 14px; flex: 1; }
+.cart-count {
+  background: #fff; color: var(--green-dark);
+  font-size: 12px; font-weight: 700;
+  min-width: 24px; height: 24px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 6px;
+}
+.cart-body { background: var(--white); padding: 14px 18px; }
+.cart-empty {
+  color: var(--text-muted); font-size: 13px;
+  text-align: center; padding: 12px 0;
+}
+.cart-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.cart-item {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--green-light);
+  border: 1px solid var(--green-line);
+  border-radius: 20px;
+  padding: 5px 12px 5px 10px;
+  font-size: 13px; color: var(--green-dark);
+  animation: popIn .2s ease;
+}
+@keyframes popIn {
+  from { opacity:0; transform: scale(.85); }
+  to   { opacity:1; transform: scale(1); }
+}
+.cart-item-remove {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 14px; line-height: 1;
+  margin-left: 2px;
+  transition: color .1s;
+}
+.cart-item-remove:hover { color: var(--red,#c0392b); }
+
 /* ════ MOBILE POLISH ════ */
 @media(max-width:600px){
   body { line-height: 1.9; }
@@ -1150,6 +1269,138 @@ footer {
           </div>
         </div>
 
+        <!-- 欲しいシステム選択 -->
+        <div class="form-section">
+          <div class="form-section-ttl">欲しいシステムを選んでください（複数選択可）</div>
+          <div class="form-section-sub">気になるものをすべて選んでください。選んだ内容をもとに担当者が仮見積もりを準備します。</div>
+
+          <div class="feat-cat-label">基本機能</div>
+          <div class="feat-grid">
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="tax_calc">
+              <div class="feat-card-inner">
+                <div class="feat-icon">🧮</div>
+                <div class="feat-name">宿泊税の自動計算</div>
+                <div class="feat-desc">チェックイン時に税額を自動で算出</div>
+              </div>
+            </label>
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="receipt">
+              <div class="feat-card-inner">
+                <div class="feat-icon">🧾</div>
+                <div class="feat-name">領収書への税額記載</div>
+                <div class="feat-desc">宿泊税を分けて印字・発行</div>
+              </div>
+            </label>
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="monthly_report">
+              <div class="feat-card-inner">
+                <div class="feat-icon">📊</div>
+                <div class="feat-name">月次集計・申告データ</div>
+                <div class="feat-desc">申告に使う集計表を自動で出力</div>
+              </div>
+            </label>
+          </div>
+
+          <div class="feat-cat-label">便利機能</div>
+          <div class="feat-grid">
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="checkin_display">
+              <div class="feat-card-inner">
+                <div class="feat-icon">🖥️</div>
+                <div class="feat-name">チェックイン画面での確認</div>
+                <div class="feat-desc">フロントで税額をすぐ確認できる</div>
+              </div>
+            </label>
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="multi_staff">
+              <div class="feat-card-inner">
+                <div class="feat-icon">👥</div>
+                <div class="feat-name">複数スタッフで共有</div>
+                <div class="feat-desc">スタッフごとにアカウントを分けたい</div>
+              </div>
+            </label>
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="smartphone">
+              <div class="feat-card-inner">
+                <div class="feat-icon">📱</div>
+                <div class="feat-name">スマホ・タブレット対応</div>
+                <div class="feat-desc">スマホからも操作できるようにしたい</div>
+              </div>
+            </label>
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="invoice_pdf">
+              <div class="feat-card-inner">
+                <div class="feat-icon">📄</div>
+                <div class="feat-name">適格請求書（インボイス）発行</div>
+                <div class="feat-desc">インボイス対応の書類を出したい</div>
+              </div>
+            </label>
+          </div>
+
+          <div class="feat-cat-label">連携・拡張</div>
+          <div class="feat-grid">
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="ota_import">
+              <div class="feat-card-inner">
+                <div class="feat-icon">🔗</div>
+                <div class="feat-name">OTAデータの自動取込</div>
+                <div class="feat-desc">じゃらん・楽天等の予約を自動連携</div>
+              </div>
+            </label>
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="accounting">
+              <div class="feat-card-inner">
+                <div class="feat-icon">📒</div>
+                <div class="feat-name">会計ソフト連携</div>
+                <div class="feat-desc">弥生・freeeなどに自動で送りたい</div>
+              </div>
+            </label>
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="pms_connect">
+              <div class="feat-card-inner">
+                <div class="feat-icon">⚙️</div>
+                <div class="feat-name">今のPMSに組み込む</div>
+                <div class="feat-desc">今使っているシステムに追加したい</div>
+              </div>
+            </label>
+          </div>
+
+          <div class="feat-cat-label">ハードウェア（補助金で購入可）</div>
+          <div class="feat-grid">
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="tablet">
+              <div class="feat-card-inner">
+                <div class="feat-icon">💻</div>
+                <div class="feat-name">タブレット</div>
+                <div class="feat-desc">iPadなどを新しく導入したい</div>
+              </div>
+            </label>
+            <label class="feat-card">
+              <input type="checkbox" name="want" value="printer">
+              <div class="feat-card-inner">
+                <div class="feat-icon">🖨️</div>
+                <div class="feat-name">レシートプリンター</div>
+                <div class="feat-desc">領収書を印刷できる機器が欲しい</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+          <!-- カート -->
+          <div class="cart-wrap" id="featureCart">
+            <div class="cart-head">
+              <div class="cart-head-icon">🛒</div>
+              <div class="cart-head-title">選択中のシステム</div>
+              <div class="cart-count" id="cartCount">0</div>
+            </div>
+            <div class="cart-body">
+              <div class="cart-empty" id="cartEmpty">カードをタップして追加してください</div>
+              <div class="cart-items" id="cartItems"></div>
+            </div>
+          </div>
+        </div>
+
         <!-- 見積もりのための確認事項 -->
         <div class="form-section">
           <div class="form-section-ttl">追加のご確認（任意）</div>
@@ -1415,6 +1666,55 @@ async function sendEmail(name, facility, tel, email, patterns, est, fd) {
     });
   } catch(_) {}
 }
+
+// ── カート ──
+(function(){
+  const LABELS = {
+    tax_calc:      '宿泊税の自動計算',
+    receipt:       '領収書への税額記載',
+    monthly_report:'月次集計・申告データ',
+    checkin_display:'チェックイン画面確認',
+    multi_staff:   '複数スタッフ共有',
+    smartphone:    'スマホ・タブレット対応',
+    invoice_pdf:   '適格請求書発行',
+    ota_import:    'OTAデータ自動取込',
+    accounting:    '会計ソフト連携',
+    pms_connect:   '今のPMSに組み込む',
+    tablet:        'タブレット',
+    printer:       'レシートプリンター',
+  };
+
+  function updateCart() {
+    const checked = [...document.querySelectorAll('input[name="want"]:checked')];
+    const countEl = document.getElementById('cartCount');
+    const emptyEl = document.getElementById('cartEmpty');
+    const itemsEl = document.getElementById('cartItems');
+
+    countEl.textContent = checked.length;
+    if (checked.length === 0) {
+      emptyEl.style.display = 'block';
+      itemsEl.innerHTML = '';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    itemsEl.innerHTML = checked.map(cb => `
+      <div class="cart-item" data-val="${cb.value}">
+        ${LABELS[cb.value] || cb.value}
+        <span class="cart-item-remove" data-val="${cb.value}">✕</span>
+      </div>`).join('');
+
+    itemsEl.querySelectorAll('.cart-item-remove').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cb = document.querySelector(`input[name="want"][value="${btn.dataset.val}"]`);
+        if (cb) { cb.checked = false; updateCart(); }
+      });
+    });
+  }
+
+  document.querySelectorAll('input[name="want"]').forEach(cb => {
+    cb.addEventListener('change', updateCart);
+  });
+})();
 
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
