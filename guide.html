@@ -588,6 +588,55 @@ details[open] summary {
 .form-ok-sub { font-size: 11.5pt; color: var(--text-mid); line-height: 1.8; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
+/* ════ FORM RESULT ════ */
+.form-result { display:none; animation: fadeIn .5s ease; }
+.result-head {
+  background: var(--green-dark); color: #fff;
+  padding: 18px 24px 16px;
+  border-radius: 10px 10px 0 0;
+}
+.result-head-label { font-size: 12px; opacity: .7; margin-bottom: 4px; }
+.result-head h3 { font-family: 'Noto Serif JP',serif; font-size: 18px; }
+.result-body {
+  background: var(--white);
+  border: 1px solid var(--green-line); border-top: none;
+  border-radius: 0 0 10px 10px;
+}
+.result-sec { padding: 18px 24px; border-bottom: 1px solid var(--green-line); }
+.result-sec:last-child { border-bottom: none; }
+.result-sec-ttl {
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--green-mid); font-weight: 700; margin-bottom: 12px;
+}
+.pattern-badge {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; border-radius: 8px; margin-bottom: 8px;
+}
+.pattern-badge.primary  { background: var(--green-light); border: 1px solid var(--green-line); }
+.pattern-badge.secondary{ background: var(--brown-light); border: 1px solid var(--brown-line); }
+.pb-num {
+  flex-shrink: 0;
+  background: var(--green-dark); color: #fff;
+  font-size: 11px; font-weight: 700;
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.pattern-badge.secondary .pb-num { background: var(--brown); }
+.pb-name { font-weight: 700; font-size: 14px; color: var(--green-dark); }
+.pb-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.result-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.result-table td { padding: 9px 0; border-bottom: 1px solid #e8ede9; }
+.result-table tr:last-child td { border-bottom: none; }
+.result-table .amt { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.result-table .sub-row td { color: var(--green-mid); font-weight: 700; }
+.result-table .out-row td { color: var(--brown); font-weight: 700; font-size: 15px; }
+.result-note  { font-size: 12px; color: var(--text-muted); margin-top: 10px; }
+.over-note    { font-size: 12px; color: #c0392b; margin-top: 6px; }
+.prereq-list  { padding-left: 1.2em; color: var(--text-mid); font-size: 14px; line-height: 2.2; }
+.result-next  { padding: 18px 24px; background: var(--green-light); border-radius: 0 0 10px 10px; }
+.result-next-ttl { font-size: 12px; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; }
+.result-next p { font-size: 14px; color: var(--text-mid); }
+
 /* ════ MOBILE POLISH ════ */
 @media(max-width:600px){
   body { line-height: 1.9; }
@@ -985,21 +1034,21 @@ footer {
         <div class="frow">
           <div class="fg">
             <label class="fl" for="f-name">お名前<span class="req">必須</span></label>
-            <input class="fi" type="text" id="f-name" placeholder="山田 太郎" required>
+            <input class="fi" type="text" id="f-name" name="f-name" placeholder="山田 太郎" required>
           </div>
           <div class="fg">
             <label class="fl" for="f-facility">施設名<span class="req">必須</span></label>
-            <input class="fi" type="text" id="f-facility" placeholder="○○民宿" required>
+            <input class="fi" type="text" id="f-facility" name="f-facility" placeholder="○○民宿" required>
           </div>
         </div>
         <div class="frow">
           <div class="fg">
             <label class="fl" for="f-tel">電話番号</label>
-            <input class="fi" type="tel" id="f-tel" placeholder="090-0000-0000">
+            <input class="fi" type="tel" id="f-tel" name="f-tel" placeholder="090-0000-0000">
           </div>
           <div class="fg">
             <label class="fl" for="f-email">メールアドレス</label>
-            <input class="fi" type="email" id="f-email" placeholder="your@email.com">
+            <input class="fi" type="email" id="f-email" name="f-email" placeholder="your@email.com">
           </div>
         </div>
         <div class="fg">
@@ -1168,14 +1217,11 @@ footer {
 
         <div class="fg">
           <label class="fl" for="f-msg">ご相談内容・気になっていること</label>
-          <textarea class="ft" id="f-msg" placeholder="現在の課題や、気になっていることなど、自由にお書きください。"></textarea>
+          <textarea class="ft" id="f-msg" name="f-msg" placeholder="現在の課題や、気になっていることなど、自由にお書きください。"></textarea>
         </div>
         <button type="submit" class="fsub">送信する</button>
       </form>
-      <div class="form-ok" id="formOk">
-        <div class="form-ok-ttl">お問い合わせを受け付けました</div>
-        <div class="form-ok-sub">内容を確認のうえ、担当者よりご連絡いたします。<br>通常2〜3営業日以内にご連絡します。</div>
-      </div>
+      <div class="form-result" id="formResult"></div>
       <p class="form-note">
         電話でのご相談：090-XXXX-XXXX（担当：○○　月〜土 9:00〜18:00）<br>
         LINEでのご相談もお気軽にどうぞ。
@@ -1199,13 +1245,161 @@ footer {
 </nav>
 
 <script>
-document.getElementById('contactForm').addEventListener('submit', function(e){
+const PATTERN_INFO = {
+  P1:{name:'完全新規構築型',   desc:'デジタル機器を一から揃えて導入します',                         prereq:['タブレット・プリンターの希望機種確認','設置場所・電源確認','操作研修の日程調整'],              low:74,  high:153},
+  P2:{name:'スタンドアロン追加型',desc:'既存の運用はそのままに宿泊税システムを追加します',           prereq:['プリンターの有無・機種確認','希望機能の詳細ヒアリング'],                                      low:43,  high:88},
+  P3:{name:'既存PMS改修型',    desc:'使用中の予約管理システムに宿泊税機能を追加します',             prereq:['PMSシステム名・バージョン確認','ベンダーへのAPI連携可否確認（訪問前に実施）'],               low:65,  high:190},
+  P4:{name:'POSレジ連携型',   desc:'使用中のレジに宿泊税を連携します',                             prereq:['レジ機種名・年式の確認','メーカーへの連携可否確認（訪問前に実施）'],                           low:33,  high:108},
+  P5:{name:'OTA複数連携型',   desc:'複数OTAの現地払い・前払いを識別して自動計算します',            prereq:['利用OTA全社リスト','Agoda利用の有無','チャネルマネージャー名とAPI可否'],                       low:100, high:210},
+  P6:{name:'会計ソフト連携型', desc:'宿泊税データを会計ソフトに連携します',                         prereq:['会計ソフト名・バージョン','API連携・CSV出力の可否確認'],                                       low:23,  high:70},
+};
+
+function determinePatterns(fd) {
+  const ledger  = fd.get('ledger') || '';
+  const devices = fd.getAll('device');
+  const booking = fd.getAll('booking');
+  const patterns = [];
+
+  const noDigital = devices.includes('none') || devices.length === 0 ||
+    devices.every(d => d === 'smartphone');
+
+  if (ledger === 'paper' && noDigital) patterns.push('P1');
+  else if (ledger === 'system')        patterns.push('P3');
+  else                                 patterns.push('P2');
+
+  if (devices.includes('pos_register') || devices.includes('tablet_pos')) {
+    const i = patterns.indexOf('P2');
+    if (i !== -1) patterns.splice(i, 1);
+    if (!patterns.includes('P4')) patterns.push('P4');
+  }
+
+  const otaCount = ['jalan','rakuten','airbnb','booking','neppan','other_ota']
+    .filter(o => booking.includes(o)).length;
+  if (otaCount >= 3 || booking.includes('channel'))
+    if (!patterns.includes('P5')) patterns.push('P5');
+
+  if (devices.includes('accounting_soft'))
+    if (!patterns.includes('P6')) patterns.push('P6');
+
+  return patterns.length ? patterns : ['P2'];
+}
+
+function calcEstimate(patterns, fd) {
+  let low  = PATTERN_INFO[patterns[0]].low;
+  let high = PATTERN_INFO[patterns[0]].high;
+  for (let i = 1; i < patterns.length; i++) {
+    const p = PATTERN_INFO[patterns[i]];
+    if (p) { low += Math.round(p.low * 0.4); high += Math.round(p.high * 0.4); }
+  }
+  const rooms = fd.get('rooms');
+  if (rooms === '11-20')  { low = Math.round(low*1.15); high = Math.round(high*1.15); }
+  if (rooms === '21over') { low = Math.round(low*1.3);  high = Math.round(high*1.3); }
+  const scope = fd.get('feature_scope');
+  if (scope === 'report') { low = Math.round(low*1.1); high = Math.round(high*1.1); }
+  if (scope === 'full')   { low = Math.round(low*1.2); high = Math.round(high*1.2); }
+  return {
+    low, high,
+    subsidyLow:  Math.min(low, 200),
+    subsidyHigh: Math.min(high, 200),
+    outLow:  Math.round(low  * 0.1),
+    outHigh: Math.round(high * 0.1),
+    overLimit: high > 200,
+  };
+}
+
+const METHOD_MSG = {
+  memo:   'メモを確認のうえ、必要であれば担当者よりご連絡します。',
+  online: 'オンライン打ち合わせの日程を、2営業日以内にご連絡します。',
+  visit:  'ご訪問の日程を、2営業日以内にご連絡します。',
+};
+
+function showResult(name, facility, patterns, est, fd) {
+  const method  = fd.get('contact_method') || 'visit';
+  const prereqs = [...new Set(patterns.flatMap(p => PATTERN_INFO[p]?.prereq || []))];
+  document.getElementById('formResult').innerHTML = `
+    <div class="result-head">
+      <div class="result-head-label">✓ お申し込みを受け付けました</div>
+      <h3>${facility}様（${name}様）</h3>
+    </div>
+    <div class="result-body">
+      <div class="result-sec">
+        <div class="result-sec-ttl">導入パターン（自動判定）</div>
+        ${patterns.map((p,i)=>`
+          <div class="pattern-badge ${i===0?'primary':'secondary'}">
+            <div class="pb-num">${p}</div>
+            <div>
+              <div class="pb-name">${PATTERN_INFO[p].name}${i>0?' <small style="font-weight:400">（追加）</small>':''}</div>
+              <div class="pb-desc">${PATTERN_INFO[p].desc}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="result-sec">
+        <div class="result-sec-ttl">概算見積もり</div>
+        <table class="result-table">
+          <tr><td>システム費用（税抜）</td><td class="amt">${est.low}〜${est.high}万円</td></tr>
+          <tr class="sub-row"><td>補助金（最大200万円・税抜）</td><td class="amt">▲ ${est.subsidyLow}〜${est.subsidyHigh}万円</td></tr>
+          <tr class="out-row"><td>手出し（消費税10%）</td><td class="amt">${est.outLow}〜${est.outHigh}万円</td></tr>
+        </table>
+        ${est.overLimit?'<p class="over-note">※ 200万円を超える部分は自己負担となります。</p>':''}
+        <p class="result-note">※ 詳細ヒアリング後に正式見積もりをご提示します。</p>
+      </div>
+      ${prereqs.length?`
+      <div class="result-sec">
+        <div class="result-sec-ttl">訪問前の確認事項</div>
+        <ul class="prereq-list">${prereqs.map(q=>`<li>${q}</li>`).join('')}</ul>
+      </div>`:''}
+      <div class="result-next">
+        <div class="result-next-ttl">次のステップ</div>
+        <p>${METHOD_MSG[method]}</p>
+      </div>
+    </div>`;
+  document.getElementById('formResult').style.display = 'block';
+}
+
+async function sendEmail(name, facility, tel, email, patterns, est, fd) {
+  const patternNames = patterns.map(p => PATTERN_INFO[p].name).join('、');
+  const methodLabel  = {memo:'メモのみ', online:'オンライン', visit:'対面訪問'}[fd.get('contact_method')] || '';
+  const payload = {
+    _subject: `【問合せ】${facility} / ${patternNames}`,
+    施設名: facility, お名前: name, 電話: tel, メール: email,
+    希望相談方法: methodLabel,
+    '★判定パターン': patternNames,
+    '★概算（税抜）': `${est.low}〜${est.high}万円`,
+    '★手出し':       `${est.outLow}〜${est.outHigh}万円`,
+    '---ヒアリング---': '',
+    予約方法: fd.getAll('booking').join('、'), 使用システム: fd.get('system')||'',
+    台帳管理: fd.get('ledger')||'', 領収書: fd.get('receipt')||'',
+    機器: fd.getAll('device').join('、'), 部屋数: fd.get('rooms')||'',
+    インターネット: fd.get('internet')||'', プリンター: fd.get('printer')||'',
+    インボイス: fd.get('invoice')||'', 宿泊税対応状況: fd.get('tax_status')||'',
+    月間宿泊者数: fd.get('guests_per_month')||'', OTA現地払い: fd.get('ota_onsite')||'',
+    希望機能: fd.get('feature_scope')||'', 決裁者: fd.get('decision_maker')||'',
+    相談内容: fd.get('f-msg')||'',
+  };
+  try {
+    await fetch('https://formsubmit.co/ajax/zomianzoo@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  } catch(_) {}
+}
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const name     = document.getElementById('f-name').value.trim();
   const facility = document.getElementById('f-facility').value.trim();
-  if(!name || !facility) return;
+  const tel      = document.getElementById('f-tel').value.trim();
+  const email    = document.getElementById('f-email').value.trim();
+  if (!name || !facility) return;
+
+  const fd = new FormData(this);
+  const patterns = determinePatterns(fd);
+  const est      = calcEstimate(patterns, fd);
+
   this.style.display = 'none';
-  document.getElementById('formOk').style.display = 'block';
+  showResult(name, facility, patterns, est, fd);
+  sendEmail(name, facility, tel, email, patterns, est, fd);
 });
 </script>
 </body>
