@@ -235,9 +235,8 @@
     width: 90px; height: 90px;
     border: 1.5px solid var(--brown-line);
     background: white;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 9pt; color: var(--text-muted); font-weight: 700; line-height: 1.5;
     margin: 0 auto;
+    overflow: hidden;
   }
 
   /* ── フッター ── */
@@ -367,8 +366,10 @@
       </div>
       <div class="cta-divider"></div>
       <div class="cta-right">
-        <div class="cta-line-label">💬 LINEで相談</div>
-        <div class="cta-qr">QR<br>コード</div>
+        <div class="cta-line-label">詳細・お問い合わせ</div>
+        <a href="https://spicerock777-droid.github.io/ailandbase-guide/guide.html" target="_blank" style="display:block;text-decoration:none">
+          <div class="cta-qr" id="qrcode"></div>
+        </a>
       </div>
     </div>
 
@@ -387,5 +388,16 @@
   </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+new QRCode(document.getElementById('qrcode'), {
+  text: 'https://spicerock777-droid.github.io/ailandbase-guide/guide.html',
+  width: 90,
+  height: 90,
+  colorDark: '#1f4a33',
+  colorLight: '#ffffff',
+  correctLevel: QRCode.CorrectLevel.M
+});
+</script>
 </body>
 </html>
