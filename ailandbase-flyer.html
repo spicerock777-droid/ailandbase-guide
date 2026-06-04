@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI.LandBase｜宿泊税対応を、わかりやすく。</title>
+<title>AI.LandBase｜めんそーれー、宿泊税。</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
 
@@ -27,7 +27,8 @@
     font-family: 'Noto Sans JP', sans-serif;
     background: #d8cfc4;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding: 24px;
     min-height: 100vh;
   }
@@ -39,11 +40,13 @@
 
   .page {
     width: 210mm;
-    min-height: 297mm;
+    height: 297mm;
     background: var(--cream);
     box-shadow: 0 12px 48px rgba(0,0,0,0.16);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 24px;
   }
 
   /* ── ヘッダー帯 ── */
@@ -56,7 +59,7 @@
   }
   .logo { font-size: 14pt; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
   .logo span { color: rgba(255,255,255,0.6); font-weight: 400; }
-  .header-sub { font-size: 9pt; color: rgba(255,255,255,0.65); letter-spacing: 0.12em; }
+  .header-sub { font-size: 11pt; color: rgba(255,255,255,0.65); letter-spacing: 0.12em; }
 
   /* ── ヒーロー ── */
   .hero {
@@ -64,7 +67,7 @@
     border-bottom: 1px solid var(--green-line);
   }
   .hero-eyebrow {
-    font-size: 10pt;
+    font-size: 12pt;
     color: var(--text-mid);
     letter-spacing: 0.18em;
     font-weight: 700;
@@ -98,7 +101,7 @@
   }
 
   .sec-label {
-    font-size: 10pt;
+    font-size: 12pt;
     font-weight: 700;
     color: var(--green-mid);
     letter-spacing: 0.18em;
@@ -163,7 +166,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 11pt;
+    font-size: 12pt;
     color: var(--text-mid);
   }
   .legend-box {
@@ -208,12 +211,12 @@
     align-items: flex-start;
   }
   .subsidy-nums { display: flex; gap: 28px; flex-shrink: 0; }
-  .sub-lbl { font-size: 11pt; font-weight: 500; color: var(--text-mid); letter-spacing: 0.08em; margin-bottom: 3px; }
+  .sub-lbl { font-size: 12pt; font-weight: 500; color: var(--text-mid); letter-spacing: 0.08em; margin-bottom: 3px; }
   .sub-val { font-size: 16pt; font-weight: 700; color: var(--green-dark); line-height: 1.2; }
-  .sub-val small { font-size: 11pt; font-weight: 500; color: var(--text-mid); }
+  .sub-val small { font-size: 12pt; font-weight: 500; color: var(--text-mid); }
   .subsidy-divider { width: 1px; background: var(--green-line); align-self: stretch; flex-shrink: 0; }
-  .subsidy-name { font-size: 11.5pt; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; }
-  .subsidy-detail { font-size: 11pt; color: var(--text-mid); line-height: 2.0; }
+  .subsidy-name { font-size: 12pt; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; }
+  .subsidy-detail { font-size: 12pt; color: var(--text-mid); line-height: 2.0; }
 
   /* ── CTA ── */
   .cta {
@@ -225,12 +228,12 @@
     gap: 20px;
   }
   .cta-left { flex: 1; }
-  .cta-eyebrow { font-size: 11pt; font-weight: 700; color: var(--text-mid); letter-spacing: 0.08em; margin-bottom: 10px; }
+  .cta-eyebrow { font-size: 12pt; font-weight: 700; color: var(--text-mid); letter-spacing: 0.08em; margin-bottom: 10px; }
   .cta-tel { font-size: 14pt; font-weight: 500; color: var(--text-dark); letter-spacing: 0.06em; line-height: 1; margin-bottom: 8px; }
-  .cta-note { font-size: 11pt; color: var(--text-mid); line-height: 2.0; }
+  .cta-note { font-size: 12pt; color: var(--text-mid); line-height: 2.0; }
   .cta-divider { width: 1px; height: 56px; background: var(--brown-line); flex-shrink: 0; }
   .cta-right { text-align: center; flex-shrink: 0; }
-  .cta-line-label { font-size: 9.5pt; color: var(--brown); font-weight: 700; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .cta-line-label { font-size: 11pt; color: var(--brown); font-weight: 700; letter-spacing: 0.08em; margin-bottom: 6px; }
   .cta-qr {
     width: 90px; height: 90px;
     border: 1.5px solid var(--brown-line);
@@ -249,8 +252,75 @@
     margin-top: 24px;
   }
   .footer-logo { font-size: 13pt; font-weight: 700; color: var(--green-dark); }
-  .footer-sub { font-size: 11pt; color: var(--text-mid); margin-top: 3px; }
-  .footer-right { font-size: 11pt; color: var(--text-mid); text-align: right; line-height: 2.0; font-weight: 500; }
+  .footer-sub { font-size: 12pt; color: var(--text-mid); margin-top: 3px; }
+  .footer-right { font-size: 12pt; color: var(--text-mid); text-align: right; line-height: 2.0; font-weight: 500; }
+
+  /* ── 表面フッター（裏面あり＋QR） ── */
+  .front-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 32px;
+    border-top: 1.5px solid var(--brown-line);
+    background: var(--brown-light);
+    flex-shrink: 0;
+  }
+  .front-footer-text {
+    font-size: 12pt;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+  .front-footer-text strong {
+    font-size: 13pt;
+    color: var(--brown);
+  }
+  .front-footer-qr {
+    text-align: center;
+  }
+  .front-footer-qr-label {
+    font-size: 10pt;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    letter-spacing: 0.08em;
+  }
+  .front-footer-qr-box {
+    width: 64px;
+    height: 64px;
+    background: white;
+    border: 1px solid var(--green-line);
+  }
+
+  /* ── 手紙文 ── */
+  .letter-body {
+    padding: 20px 32px;
+    border-top: 1px solid var(--green-line);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+  .letter-body p {
+    font-size: 11.5pt;
+    color: var(--text-dark);
+    line-height: 2.0;
+  }
+  .letter-voices {
+    padding-left: 18px;
+    border-left: 3px solid var(--green-line);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .letter-voices p {
+    font-size: 12pt;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+  .letter-body strong {
+    color: var(--green-dark);
+    font-weight: 700;
+  }
 
   @media print {
     body { background: white; padding: 0; }
@@ -269,12 +339,22 @@
 
   <!-- ヒーロー -->
   <div class="hero">
-    <div class="hero-eyebrow">沖縄県宿泊税　対応のご案内</div>
-    <div class="hero-catch">宿泊税対応を、<br>わかりやすく。</div>
+    <div class="hero-eyebrow">沖縄県　宿泊税対応のご案内</div>
+    <div class="hero-catch">めんそーれー、宿泊税</div>
     <div class="hero-sub">
-      計算・集計・申告データ作成・領収書発行を、<br>
-      ひとつの仕組みでサポートします。
+      宿泊税の導入にあたり、お役に立てることがあればと思いご案内しています。
     </div>
+  </div>
+
+  <!-- 手紙文 -->
+  <div class="letter-body">
+    <p>宿泊税が始まると、これまでになかった事務作業が毎月発生します。</p>
+    <div class="letter-voices">
+      <p>「何から準備すればいい？」</p>
+      <p>「今のやり方で対応できる？」</p>
+    </div>
+    <p>そう感じている方も多いのではないでしょうか。</p>
+    <p>私たちAI.LandBaseは、やんばるの小規模な宿泊施設を専門にサポートしています。お宿の規模・予約方法・現在の環境に合わせて、ひとつひとつ整理しながら、<strong>あなたのお宿だけの仕組みを一緒に設計します。</strong></p>
   </div>
 
   <!-- コンテンツ -->
@@ -282,12 +362,8 @@
 
     <!-- 月次フロー図 -->
     <div>
-      <div class="sec-label">宿泊税対応の月次業務</div>
+      <div class="sec-label">宿泊税で増える、毎月の作業</div>
       <div class="flow-section">
-        <div class="flow-intro">
-          宿泊税の導入後、毎月これらの業務が発生します。<br>
-          計算・集計・申告データ作成・領収書発行は、システムがサポートします。
-        </div>
         <div class="flow-row">
           <div class="flow-step">宿泊実績<br>の確認</div>
           <div class="flow-arrow">›</div>
@@ -308,32 +384,58 @@
       </div>
     </div>
 
+  </div><!-- /content 表面 -->
+
+  <!-- 表面フッター -->
+  <div class="front-footer">
+    <div class="front-footer-text">
+      <strong>▶ 裏面もご覧ください</strong><br>
+      システムの機能・補助金・お問い合わせ先を掲載しています。
+    </div>
+    <div class="front-footer-qr">
+      <div class="front-footer-qr-label">詳細はこちら</div>
+      <div class="front-footer-qr-box" id="qrcode-front"></div>
+    </div>
+  </div>
+
+</div><!-- /page 表面 -->
+
+<!-- 裏面 -->
+<div class="page">
+
+  <div class="page-header">
+    <div class="logo">AI.<span>Land</span>Base</div>
+    <div class="header-sub">やんばるの宿泊事業者さまへ</div>
+  </div>
+
+  <div class="content">
+
     <!-- 機能 -->
     <div>
-      <div class="sec-label">システムでできること</div>
+      <div class="sec-label">私たちにできること</div>
       <div class="features">
         <div class="feature">
           <div class="feature-title">宿泊税額の自動計算</div>
-          <div class="feature-desc">税率2%・上限2,000円・課税標準の1,000円未満切り捨てに自動対応</div>
+          <div class="feature-desc">計算はシステムにおまかせ。税率・上限・端数処理まで、自動で対応します。</div>
         </div>
         <div class="feature">
           <div class="feature-title">月次集計レポート</div>
-          <div class="feature-desc">毎月の宿泊者数・宿泊税額を自動で集計します</div>
+          <div class="feature-desc">月末になれば、集計表がひとりでに出来上がります。</div>
         </div>
         <div class="feature">
           <div class="feature-title">申告データの出力</div>
-          <div class="feature-desc">申告に必要なデータをまとめて出力します</div>
+          <div class="feature-desc">申告に必要なデータを、ボタン一つで出力できます。</div>
         </div>
         <div class="feature">
           <div class="feature-title">領収書への税額記載</div>
-          <div class="feature-desc">領収書・請求書に宿泊税額を自動で印字します</div>
+          <div class="feature-desc">宿泊税額を自動で分けて印字。ゲストへの説明もスムーズになります。</div>
         </div>
       </div>
     </div>
 
     <!-- 補助金 -->
     <div>
-      <div class="sec-label">システム整備に使える補助金</div>
+      <div class="sec-label">費用のご心配も、解決できます</div>
       <div class="subsidy">
         <div class="subsidy-nums">
           <div>
@@ -351,7 +453,7 @@
           <div class="subsidy-detail">
             対象経費：システム構築・改修・ソフトウェア・ハードウェア購入など<br>
             <strong style="color:var(--green-dark)">領収書印字用プリンターも補助対象</strong>（消耗品を除く）<br>
-            問い合わせ：0120-153-048（事務局　平日10:00〜17:00）
+            申請期限：<strong style="color:var(--brown)">※確認中</strong>　／　問い合わせ：0120-153-048（事務局　平日10:00〜17:00）
           </div>
         </div>
       </div>
@@ -360,9 +462,9 @@
     <!-- CTA -->
     <div class="cta">
       <div class="cta-left">
-        <div class="cta-eyebrow">ご相談・お見積もりは無料です</div>
+        <div class="cta-eyebrow">まず話を聞くだけでも、歓迎します</div>
         <div class="cta-tel">090-XXXX-XXXX</div>
-        <div class="cta-note">担当：○○　（月〜土　9:00〜18:00）<br>出張対応可（やんばる7市村）</div>
+        <div class="cta-note">担当：○○　（月〜土　9:00〜18:00）<br>出張対応可（やんばる7市村）・オンライン対応可</div>
       </div>
       <div class="cta-divider"></div>
       <div class="cta-right">
@@ -383,13 +485,21 @@
     </div>
     <div class="footer-right">
       相談・見積もり無料<br>
-      出張対応可（やんばる7市村）
+      出張・オンライン対応可
     </div>
   </div>
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script>
+new QRCode(document.getElementById('qrcode-front'), {
+  text: 'https://spicerock777-droid.github.io/ailandbase-guide/guide.html',
+  width: 64,
+  height: 64,
+  colorDark: '#1f4a33',
+  colorLight: '#ffffff',
+  correctLevel: QRCode.CorrectLevel.M
+});
 new QRCode(document.getElementById('qrcode'), {
   text: 'https://spicerock777-droid.github.io/ailandbase-guide/guide.html',
   width: 90,
