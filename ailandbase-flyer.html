@@ -327,11 +327,13 @@
     body { background: white; padding: 0; }
     .page {
       box-shadow: none;
-      page-break-after: always;
-      break-after: page;
       height: 297mm;
       max-height: 297mm;
       overflow: hidden;
+    }
+    .page:not(:last-child) {
+      page-break-after: always;
+      break-after: page;
     }
   }
 </style>
