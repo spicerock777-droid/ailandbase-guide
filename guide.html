@@ -1037,7 +1037,7 @@ const PATTERN_INFO = {
   P1:{name:'完全新規構築型',
       desc:'デジタル機器・システムを一から揃えて導入します',
       prereq:['タブレット・プリンターの希望機種確認','設置場所・電源の確認','操作研修の日程調整'],
-      low:60, high:130},
+      low:200, high:200, fixed:true},
   P2:{name:'スタンドアロン追加型',
       desc:'現在の運用はそのままに、宿泊税計算・領収書システムを追加します',
       prereq:['プリンターの有無・機種確認','希望機能の詳細ヒアリング'],
@@ -1113,12 +1113,14 @@ function calcEstimate(patterns, fd) {
     const add = SECONDARY_ADD[patterns[i]];
     if (add) { low += add.low; high += add.high; }
   }
-  const rooms = fd.get('rooms');
-  if (rooms === '11-20')  { low = Math.round(low*1.15); high = Math.round(high*1.15); }
-  if (rooms === '21over') { low = Math.round(low*1.3);  high = Math.round(high*1.3); }
-  const scope = fd.get('feature_scope');
-  if (scope === 'report') { low = Math.round(low*1.1); high = Math.round(high*1.1); }
-  if (scope === 'full')   { low = Math.round(low*1.2); high = Math.round(high*1.2); }
+  if (!PATTERN_INFO[patterns[0]].fixed) {
+    const rooms = fd.get('rooms');
+    if (rooms === '11-20')  { low = Math.round(low*1.15); high = Math.round(high*1.15); }
+    if (rooms === '21over') { low = Math.round(low*1.3);  high = Math.round(high*1.3); }
+    const scope = fd.get('feature_scope');
+    if (scope === 'report') { low = Math.round(low*1.1); high = Math.round(high*1.1); }
+    if (scope === 'full')   { low = Math.round(low*1.2); high = Math.round(high*1.2); }
+  }
   return {
     low, high,
     subsidyLow:  Math.min(low, 200),
@@ -1183,8 +1185,8 @@ async function sendEmail(name, facility, tel, email, patterns, est, fd) {
     施設名: facility, お名前: name, 電話: tel, メール: email,
     希望相談方法: methodLabel,
     '★判定パターン': patternNames,
-    '★概算（税抜）': `${est.low}〜${est.high}万円`,
-    '★手出し':       `${est.outLow}〜${est.outHigh}万円`,
+    '★概算（税抜）': est.low === est.high ? `${est.low}万円（固定）` : `${est.low}〜${est.high}万円`,
+    '★手出し':       est.outLow === est.outHigh ? `${est.outLow}万円` : `${est.outLow}〜${est.outHigh}万円`,
     '---ヒアリング---': '',
     予約方法: fd.getAll('booking').join('、'), 使用システム: fd.get('system')||'',
     台帳管理: fd.get('ledger')||'', 領収書: fd.get('receipt')||'',
